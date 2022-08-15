@@ -5,7 +5,15 @@ import { converCurences } from "../../config";
 import { NavLink } from "react-router-dom";
 
 const Cart = () => {
-  const { cartItems, totalPrice, removeToCart } = useCart();
+  const {
+    cartItems,
+    totalPrice,
+    removeToCart,
+    updateQuantityDecrement,
+    index,
+    handleQuantityChange,
+    updateQuantityIncrement,
+  } = useCart();
 
   return (
     <div>
@@ -43,12 +51,63 @@ const Cart = () => {
                     <p className="text-black font-semibold capitalize ">
                       {item.mausac} , {item.ram}
                     </p>
-                    <div className="flex">
-                      Chọn Số Lượng{" "}
-                      <div className=" mx-2 border border-solid w-16 text-center">
-                        <span className="cursor-pointer px-1.5"> - </span>{" "}
-                        {item.quantity}
-                        <span className="cursor-pointer px-1.5"> + </span>
+                    <div className="flex ">
+                      Số Lượng:{" "}
+                      <div className=" flex border rounded-md  ml-5 my-1 h-6">
+                        <button
+                          type="button"
+                          aria-label="Decrement value"
+                          className="w-[25px] flex items-center justify-center"
+                          onClick={() =>
+                            updateQuantityDecrement(index, cartItems)
+                          }
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="w-3 h-3 "
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </button>
+                        <input
+                          value={item.quantity}
+                          // data-value={quantity}
+                          onChange={(e) => {
+                            handleQuantityChange(
+                              index,
+                              cartItems,
+                              e.target.value
+                            );
+                          }}
+                          className="w-[25px] outline-none border-none h-full text-center"
+                        ></input>
+                        <button
+                          aria-label="Increment value"
+                          type="button"
+                          className="w-[25px] flex items-center justify-center"
+                          onClick={(e) => {
+                            updateQuantityIncrement(index, cartItems);
+                          }}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="w-4 h-4 "
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </button>
                       </div>
                       <p
                         className="mx-7 cursor-pointer text-black font-semibold hover:text-red-600"

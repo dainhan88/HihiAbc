@@ -10,6 +10,9 @@ global.Task = require("./models/taskModel");
 global.Product = require("./models/productModels");
 global.ProductDetails = require("./models/ProductDetails");
 global.order = require("./models/orderModels");
+global.producers = require("./models/producersModels");
+global.warrantyclaim = require("./models/warrantyclaimModels");
+global.returnproduct = require("./models/returnproductModels");
 const routes = require("./routes");
 // set up dependencies
 db.connect();

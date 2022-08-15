@@ -30,7 +30,7 @@ const orderSchema = new Schema(
       requried: true,
     },
     tongTien: {
-      type: String,
+      type: Number,
       requried: true,
     },
     trangThai: {

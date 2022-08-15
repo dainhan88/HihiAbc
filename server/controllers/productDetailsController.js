@@ -28,6 +28,25 @@ exports.read_a_productDetails = (req, res) => {
   );
 };
 
+exports.getProductDetail = (req, res) => {
+  productDetails.aggregate(
+    [
+      {
+        $group: {
+          _id: "$idSanPham",
+          mausac: { $push: "$mauSac" },
+          ram: { $push: "$ram" },
+          gia: { $push: "$donGia" },
+        },
+      },
+    ],
+    (err, productDetails) => {
+      console.log("req.params.idSanPham", req.params.idSanPham);
+      if (err) res.send(err);
+      res.json(productDetails);
+    }
+  );
+};
 exports.getInfoProductDetails = (req, res) => {
   productDetails.aggregate(
     [
@@ -38,39 +57,7 @@ exports.getInfoProductDetails = (req, res) => {
           mausac: { $push: "$mauSac" },
           ram: { $push: "$ram" },
           gia: { $push: "$donGia" },
-          cpu: { $addToSet: "$cpu" },
-          oCUng: { $addToSet: "$oCUng" },
-          cardDoHoa: { $addToSet: "$cardDoHoa" },
-          manHinh: { $addToSet: "$manHinh" },
-          audio: { $addToSet: "$audio" },
-          wedCam: { $addToSet: "$wedCam" },
-          pin: { $addToSet: "$pin" },
-          kichThuoc: { $addToSet: "$kichThuoc" },
         },
-      },
-      {
-        $unwind: "$cardDoHoa",
-      },
-      {
-        $unwind: "$manHinh",
-      },
-      {
-        $unwind: "$audio",
-      },
-      {
-        $unwind: "$wedCam",
-      },
-      {
-        $unwind: "$pin",
-      },
-      {
-        $unwind: "$kichThuoc",
-      },
-      {
-        $unwind: "$oCUng",
-      },
-      {
-        $unwind: "$cpu",
       },
     ],
     (err, productDetails) => {
@@ -101,4 +88,82 @@ exports.delete_a_productDetails = (req, res) => {
       _id: req.params.idSanPham,
     });
   });
+};
+
+exports.getAllProductDetails = (req, res) => {
+  productDetails
+    .aggregate(
+      [
+        {
+          $group: {
+            _id: "$idSanPham",
+            mausac: { $addToSet: "$mauSac" },
+            ram: { $addToSet: "$ram" },
+            gia: { $push: "$donGia" },
+            soLuong: { $sum: "$soLuong" },
+          },
+        },
+        {
+          $lookup: {
+            from: "product",
+            localField: "_id",
+            foreignField: "_id",
+            as: "Product",
+          },
+        },
+        {
+          $unwind: "$Product",
+        },
+      ],
+      (err, results) => {
+        if (err) res.send(err);
+        res.json(results);
+      }
+    )
+    .sort({ _id: 1 });
+};
+
+exports.UpdateQuantity = (req, res) => {
+  console.log(req.params);
+  productdetails.updateOne(
+    {
+      productdetailsId: new mongoose.Types.ObjectId(req.params.infoId),
+      mauSac: req.params.mausac,
+      ram: req.params.ram,
+    },
+    {
+      $inc: { soLuong: -req.params.quantity },
+    },
+    (err, proInfo) => {
+      if (err) res.send(err);
+      console.log(proInfo);
+      res.json(proInfo);
+    }
+  );
+};
+
+exports.checkProductDetails = (req, res) => {
+  console.log(req.params);
+  productDetails.aggregate(
+    [
+      {
+        $project: {
+          idSanPham: 1,
+          mauSac: 1,
+          soLuong: 1,
+        },
+      },
+      {
+        $match: {
+          idSanPham: mongoose.Types.ObjectId(req.params.proID),
+          mauSac: req.params.mausac,
+        },
+      },
+    ],
+    (err, result) => {
+      if (err) res.send(err);
+      const { soLuong, ...data } = result[0];
+      res.json(soLuong);
+    }
+  );
 };

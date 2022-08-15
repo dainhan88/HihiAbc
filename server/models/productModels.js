@@ -23,6 +23,33 @@ const productSchema = new Schema(
       type: String,
       required: "Đơn Giá Không Được Để Trống",
     },
+    cpu: {
+      type: String,
+    },
+    oCUng: {
+      type: String,
+    },
+    cardDoHoa: {
+      type: String,
+    },
+    manHinh: {
+      type: String,
+    },
+    audio: {
+      type: String,
+    },
+    wedCam: {
+      type: String,
+    },
+    pin: {
+      type: String,
+    },
+    kichThuoc: {
+      type: String,
+    },
+    nhuCau: {
+      type: String,
+    },
   },
   { collection: "product" }
 );

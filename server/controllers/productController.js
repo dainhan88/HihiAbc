@@ -36,7 +36,17 @@ exports.create_a_product = (req, res) => {
     maLoaiSanPham: req.body.maLoaiSanPham,
     hinhanh: req.file.filename,
     soLuong: req.body.soLuong,
+    cpu: req.body.cpu,
+    oCUng: req.body.oCUng,
     donGiaSP: req.body.donGiaSP,
+
+    cardDoHoa: req.body.cardDoHoa,
+    manHinh: req.body.manHinh,
+    audio: req.body.audio,
+    wedCam: req.body.wedCam,
+    pin: req.body.pin,
+    kichThuoc: req.body.kichThuoc,
+    nhuCau: req.body.nhuCau,
   });
   newproduct.save((err, product) => {
     if (err) res.send(err);
@@ -53,10 +63,66 @@ exports.read_a_product = (req, res) => {
 };
 
 exports.update_a_product = (req, res) => {
-  product.findOneAndUpdate(
-    { _id: req.params.productId },
-    { $set: req.body },
-    { new: true },
+  console.log(req.body);
+  if (req.file) {
+    product.findOneAndUpdate(
+      { _id: req.params.productId },
+      {
+        tenSanPham: req.body.tenSanPham,
+        maLoaiSanPham: req.body.maLoaiSanPham,
+        hinhanh: req.file.filename,
+        soLuong: req.body.soLuong,
+        cpu: req.body.cpu,
+        oCUng: req.body.oCUng,
+        donGiaSP: req.body.donGiaSP,
+        cardDoHoa: req.body.cardDoHoa,
+        manHinh: req.body.manHinh,
+        audio: req.body.audio,
+        wedCam: req.body.wedCam,
+        pin: req.body.pin,
+        kichThuoc: req.body.kichThuoc,
+        nhuCau: req.body.nhuCau,
+      },
+      { new: true },
+      (err, product) => {
+        if (err) res.send(err);
+        res.json(product);
+      }
+    );
+  } else {
+    product.findOneAndUpdate(
+      { _id: req.params.productId },
+      {
+        tenSanPham: req.body.tenSanPham,
+        maLoaiSanPham: req.body.maLoaiSanPham,
+        soLuong: req.body.soLuong,
+        cpu: req.body.cpu,
+        oCUng: req.body.oCUng,
+        donGiaSP: req.body.donGiaSP,
+        cardDoHoa: req.body.cardDoHoa,
+        manHinh: req.body.manHinh,
+        audio: req.body.audio,
+        wedCam: req.body.wedCam,
+        pin: req.body.pin,
+        kichThuoc: req.body.kichThuoc,
+        nhuCau: req.body.nhuCau,
+      },
+      { new: true },
+      (err, product) => {
+        if (err) res.send(err);
+        res.json(product);
+      }
+    );
+  }
+};
+
+exports.getOrderBynhuCau = (req, res) => {
+  order.aggregate(
+    [
+      {
+        $match: { nhuCau: req.params.nhuCau },
+      },
+    ],
     (err, product) => {
       if (err) res.send(err);
       res.json(product);
@@ -72,4 +138,52 @@ exports.delete_a_product = (req, res) => {
       _id: req.params.productId,
     });
   });
+};
+
+// lấy theo thể loại
+exports.list_all_products_cate = (req, res) => {
+  product.aggregate(
+    [
+      {
+        $match: {
+          categories: mongoose.Types.ObjectId(req.params.cateId),
+        },
+      },
+      {
+        $lookup: {
+          from: "category",
+          localField: "categories",
+          foreignField: "_id",
+          as: "categories",
+        },
+      },
+      {
+        $lookup: {
+          from: "productInfo",
+          localField: "_id",
+          foreignField: "productID",
+          as: "productInfo",
+        },
+      },
+      {
+        $unwind: "$categories",
+      },
+      { $unwind: "$productInfo" },
+      {
+        $group: {
+          _id: "$_id",
+          name: { $first: "$name" },
+          unitPrice: { $first: "$unitPrice" },
+          unitPromotionalPrice: { $first: "$unitPromotionalPrice" },
+          images: { $first: "$images" },
+          categories: { $first: "$categories" },
+          productInfo: { $push: "$productInfo" },
+        },
+      },
+    ],
+    (err, product) => {
+      if (err) res.send(err);
+      res.json(product);
+    }
+  );
 };

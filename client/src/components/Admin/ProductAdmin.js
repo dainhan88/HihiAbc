@@ -1,7 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { converCurences } from "../../config";
+import { v4 as uuidv4 } from "uuid";
 import Products from "../Products";
 
 const ProductAdmin = () => {
@@ -36,102 +37,79 @@ const ProductAdmin = () => {
     setFile(e.target.files[0]);
   };
   return (
-    <div>
-      <form onSubmit={(e) => handleFormSubmit(e)} encType="multipart/form-data">
-        <input
-          type="text"
-          name="tenSanPham"
-          placeholder="Nhập Tên Sản Phẩm"
-          onChange={(e) => {
-            settenSanPham(e.target.value);
-          }}
-          className="py-3 px-12 border boder-gray-300 rounded-lg mx-2 my-2"
-        />
-        <input
-          type="text"
-          name="maLoaiSanPham"
-          placeholder="Nhập Mã Loại Sản Phẩm"
-          onChange={(e) => {
-            setmaLoaiSanPham(e.target.value);
-          }}
-          className="py-3 px-12 border boder-gray-300 rounded-lg mx-2 my-2"
-        />
-        <input
-          type="text"
-          name="soLuong"
-          placeholder="Nhập Số Lượng Sản Phẩm"
-          onChange={(e) => {
-            setsoLuong(e.target.value);
-          }}
-          className="py-3 px-12 border boder-gray-300 rounded-lg mx-2 my-2"
-        />
-        <input
-          type="text"
-          name="donGiaSP"
-          placeholder="Nhập Đơn Giá Sản Phẩm"
-          onChange={(e) => {
-            setdonGiaSP(e.target.value);
-          }}
-          className="py-3 px-12 border boder-gray-300 rounded-lg mx-2 my-2"
-        />
-        <input type="file" name="hinhanh" onChange={handleSetFile} />
-        <button
+    <div className="page-container">
+      <div>
+        <NavLink
+          to="/admin/createproduct"
           type="submit"
-          className="h-10 px-6 font-semibold rounded-md bg-cyan-600 text-white  hover:bg-cyan-900"
+          className=" flex w-[235px] transition-all h-10 my-5 py-2 mx-5 px-6 font-semibold rounded-md bg-cyan-600 text-white  hover:bg-cyan-900"
         >
-          Thêm Sản Phẩm
-        </button>
-      </form>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            className="bi bi-plus-circle-fill my-1"
+            viewBox="0 0 16 16"
+          >
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+          </svg>
+          <p className="px-2">Thêm Sản Phẩm Mới</p>
+        </NavLink>
+      </div>
 
-      <div className="grid grid-cols-3 page-container ">
-        {data &&
-          data.length > 0 &&
-          data.map((item) => {
-            return (
-              <div
-                key={item._id}
-                className="text-blue-700 text-center border border-cyan-600 m-4 p-2 flex flex-col  group "
-              >
-                <img
-                  src={`./images/${item.hinhanh}`}
-                  alt=""
-                  className=" justify-items-center w-700 object-cover rounded-lg-50 py-11 group-hover:-translate-y-2 ease-out duration-300"
-                ></img>
-                <div className="flex flex-col mt-auto">
-                  <div>
-                    <span> {item.tenSanPham} </span>
-                    <span> {item.maLoaiSanPham} </span>
-                    <br />
-                    <span className="text-white text-lg bg-[#ff9300] font-semibold rounded-xl px-6 ">
-                      {" "}
-                      {converCurences(item.donGiaSP)}đ{" "}
-                    </span>
-                  </div>
-                  <div className="py-2 flex items-center gap-x-2 justify-center mt-auto">
-                    <button
-                      type="submit"
-                      className="h-10 w-full font-semibold rounded-md bg-cyan-600 text-white  hover:bg-cyan-900 transition-all"
+      <table className="w-full text-sm text-left text-gray-500 ">
+        <thead className="text-[18px] text-orange-500 uppercase bg-gray-50 ">
+          <tr>
+            <th className="py-3 px-6">Sản Phẩm</th>
+            <th className="py-3 px-6">Hãng</th>
+            <th className="py-3 px-6">Số Lượng</th>
+            <th className="py-3 px-6">Đơn Giá</th>
+          </tr>
+        </thead>
+        <tbody className="text-[14px] ">
+          {data &&
+            data.length > 0 &&
+            data.map((item) => {
+              return (
+                <React.Fragment key={uuidv4()}>
+                  <tr className="border-t">
+                    <th className="px-6 flex  uppercase font-bold">
+                      <img
+                        src={`../images/${item.hinhanh}`}
+                        alt=""
+                        className=" justify-items-center w-20 h-20 object-cover  group-hover:-translate-y-2 ease-out duration-300"
+                      ></img>
+                      <p className="py-9">
+                        {item.maLoaiSanPham} - {item.tenSanPham}
+                      </p>
+                    </th>
+                    <th className="px-6  uppercase font-bold">
+                      {item.maLoaiSanPham}
+                    </th>
+                    <th className="px-6  uppercase font-bold">
+                      {item.soLuong}
+                    </th>
+                    <th className="px-6   font-bold">
+                      {converCurences(item.donGiaSP)}đ
+                    </th>
+                    <th
+                      className="cursor-pointer  text-blue-600 "
                       onClick={() => {
-                        navigate(`/sanpham/${item._id}`);
+                        navigate(`/Admin/updateproductadmin/${item._id}`);
                       }}
                     >
-                      Chi Tiết Sản Phẩm
-                    </button>
-                    <button
-                      type="submit"
-                      className="h-10 w-full font-semibold rounded-md bg-pink-600 text-white  hover:bg-red-900 transition-all"
-                    >
-                      Thêm Vào Giỏ Hàng
-                    </button>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-      </div>
+                      Sửa
+                    </th>
+                    <th className="cursor-pointer  text-red-600 ">Xóa</th>
+                  </tr>
+                </React.Fragment>
+              );
+            })}
+        </tbody>
+      </table>
     </div>
   );
 };
 
 export default ProductAdmin;
-<Products></Products>;

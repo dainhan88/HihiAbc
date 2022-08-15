@@ -40,7 +40,7 @@ const Products = () => {
           <img src="https://scontent.fhan2-4.fna.fbcdn.net/v/t1.15752-9/292743536_579658443794451_9121069499877505171_n.png?_nc_cat=103&ccb=1-7&_nc_sid=ae9488&_nc_ohc=Agb6g9_sgkgAX8R0zRu&_nc_ht=scontent.fhan2-4.fna&oh=03_AVJ1kq6ReSQiYBicpp2EmnpSBw_TvEbw1HzZjYpzZoCIwg&oe=630356ED"></img>
         </a>
       </div>
-      <div className="grid grid-cols-3 page-container ">
+      <div className="grid grid-cols-5 page-container ">
         {data &&
           data.length > 0 &&
           data.map((item) => {

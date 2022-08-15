@@ -139,6 +139,11 @@ const CartProvider = (props) => {
     }, 0);
   };
 
+  const clearAllData = () => {
+    setCartItems([]);
+    localStorage.removeItem("cart");
+  };
+
   const values = {
     addToCart,
     cartItems,
@@ -151,6 +156,7 @@ const CartProvider = (props) => {
     calcQuantity,
     totalPrice,
     addToCartFromDetail,
+    clearAllData,
   };
   return (
     <Cartcontext.Provider value={values} {...props}></Cartcontext.Provider>
