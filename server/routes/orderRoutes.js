@@ -14,5 +14,9 @@ routes.delete("/:idorder", orderBuilder.delete_a_order);
 routes.get("/v2/getProfitNowMonth", orderBuilder.getProfitOrderNowMonth);
 routes.get("/v2/getProfitPermonth", orderBuilder.getProfitPerMonth);
 routes.get("/v2/getProfitMonthly", orderBuilder.getProfitMonthly);
+routes.get(
+  "/getOrderByDateRange/startDate=:startDate&?endDate=:endDate",
+  orderBuilder.getOrderByDateRange
+);
 
 module.exports = routes;

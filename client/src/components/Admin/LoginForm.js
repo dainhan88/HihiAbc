@@ -1,10 +1,23 @@
 import React from "react";
-
+import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { loginUser } from "../../redux/apiRequest";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const LoginForm = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { register, handleSubmit } = useForm();
+  const handleOnSubmit = async (data) => {
+    console.log(data);
+    const a = await loginUser(data, dispatch, navigate);
+    console.log(a);
+  };
+
   return (
     <div className="page-container">
       <div className="flex gap-x-20">
-        <div className=" mt-44">
+        <div className=" mt-60">
           <img src="https://scontent.fhan15-1.fna.fbcdn.net/v/t1.15752-9/293791365_649899559426320_6480368660795726920_n.png?_nc_cat=101&ccb=1-7&_nc_sid=ae9488&_nc_ohc=SOmawXs48fUAX-x6YmM&_nc_ht=scontent.fhan15-1.fna&oh=03_AVLyfep3y7oLGHJgkIxRQfPo3cR3LxOm1a4FnmlurJZgtg&oe=631F930B"></img>
         </div>
         <div className="flex flex-col items-center justify-center w-[900px]  h-screen select-none">
@@ -13,22 +26,22 @@ const LoginForm = () => {
               Đăng Nhập
             </div>
             <div className="mt-10">
-              <form>
+              <form onSubmit={handleSubmit(handleOnSubmit)}>
                 <div className="relative w-full mb-3">
                   <input
-                    type="email"
-                    name="email"
+                    type="username"
                     className="border-0 p-4 transiton-all placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                    placeholder="Email"
+                    placeholder="User Name"
+                    {...register("username")}
                   />
-                  <small className="p-2 text-red-500">* Email</small>
+                  <small className="p-2 text-red-500">* User Name</small>
                 </div>
                 <div className="relative w-full mb-3">
                   <input
                     type="password"
-                    name="password"
                     className="border-0 p-4 transition-all placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
                     placeholder="Password"
+                    {...register("password")}
                   />
                   <small className="p-2 text-red-500">* Password</small>
                 </div>

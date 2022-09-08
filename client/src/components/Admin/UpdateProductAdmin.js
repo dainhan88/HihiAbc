@@ -5,20 +5,28 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const UpdateProductAdmin = () => {
   const [data, setData] = useState();
+  const [label, setLabel] = useState();
+  const [dataCate, setDataCate] = useState();
   const { sanphamid } = useParams();
   const navigate = useNavigate();
   useEffect(() => {
     axios.get(`/api/products/${sanphamid}`).then((res) => {
       setData(res.data);
+      setLabel(res.data.maLoaiSanPham);
+    });
+    axios.get("/api/producers").then((res) => {
+      setDataCate(res.data);
     });
   }, [sanphamid]);
+
   const [file, setFile] = useState();
   const { register, handleSubmit } = useForm();
+
   const handleOnSubmit = (data) => {
     const formData = new FormData();
     if (!file) {
       formData.append("tenSanPham", data.tenSanPham);
-      formData.append("maLoaiSanPham", data.maLoaiSanPham);
+      formData.append("maLoaiSanPham", label);
       formData.append("soLuong", data.soLuong);
       formData.append("donGiaSP", data.donGiaSP);
       formData.append("cpu", data.cpu);
@@ -32,7 +40,7 @@ const UpdateProductAdmin = () => {
       formData.append("nhuCau", data.nhuCau);
     } else {
       formData.append("tenSanPham", data.tenSanPham);
-      formData.append("maLoaiSanPham", data.maLoaiSanPham);
+      formData.append("maLoaiSanPham", label);
       formData.append("soLuong", data.soLuong);
       formData.append("donGiaSP", data.donGiaSP);
       formData.append("cpu", data.cpu);
@@ -56,6 +64,10 @@ const UpdateProductAdmin = () => {
   const handleSetFile = (e) => {
     setFile(e.target.files[0]);
   };
+  const handleChangeCate = (e) => {
+    setLabel(e.target.value);
+  };
+  console.log(data);
   return (
     <>
       {data && (
@@ -73,6 +85,7 @@ const UpdateProductAdmin = () => {
                 <option value={"LapTop Mỏng Nhẹ"}>LapTop Mỏng Nhẹ</option>
               </select>
             </div>
+
             <div className="text-left flex gap-x-64 mx-24">
               <div>
                 <div className="flex ">
@@ -86,7 +99,7 @@ const UpdateProductAdmin = () => {
                     className="py-3 px-12 border boder-gray-300 rounded-lg mx-2 my-2"
                   />
                 </div>
-                <div className="flex">
+                {/* <div className="flex">
                   <p className="w-36 my-5">Thương Hiệu :</p>
                   <input
                     type="text"
@@ -96,6 +109,24 @@ const UpdateProductAdmin = () => {
                     {...register("maLoaiSanPham")}
                     className="py-3 px-12 border boder-gray-300 rounded-lg mx-2 my-2"
                   />
+                </div> */}
+                <div className="flex">
+                  <p className="w-36 my-5">Thương Hiệu :</p>
+                  <select
+                    // {...register("maLoaiSanPham")}
+                    value={label}
+                    onChange={handleChangeCate}
+                  >
+                    {dataCate &&
+                      dataCate.length > 0 &&
+                      dataCate.map((item) => {
+                        return (
+                          <option value={item.tenNSX} key={item._id}>
+                            {item.tenNSX}
+                          </option>
+                        );
+                      })}
+                  </select>
                 </div>
                 <div className="flex">
                   <p className="w-36 my-5">Nhập Số Lượng :</p>

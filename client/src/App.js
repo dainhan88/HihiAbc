@@ -18,7 +18,7 @@ import HomeAdmin from "./components/Admin/HomeAdmin";
 import OrderHeader from "./components/Admin/OrderHeader";
 import Warehouse from "./components/Admin/Warehouse";
 import CreateProduct from "./components/Admin/CreateProduct";
-import AdminProductDetails from "./components/Admin/AdminDetailsProduct";
+import AdminProductDetails from "./components/Admin/ProductDetailsAdmin";
 import OrderSuccess from "./components/Cart/OrderSuccess";
 import Returnpolicy from "./components/Returnpolicy";
 import Policy from "./components/Policy";
@@ -31,13 +31,17 @@ import WarrantyClaim from "./components/WarrantyClaim";
 import LoginForm from "./components/Admin/LoginForm";
 import WarrantyClaimAdmin from "./components/Admin/WarrantyClaimAdmin";
 import ReturnProductAdmin from "./components/Admin/ReturnProductAdmin";
+import Zalolink from "./components/Zalolink";
 
 function App() {
   return (
     <Routes>
+      <Route path="/login" element={<LoginForm />}></Route>
+      <Route path="/zalo-link" element={<Zalolink />}></Route>
       <Route path="/" element={<Base />}>
         <Route index element={<Home />}></Route>
         <Route path="/sanpham" element={<Products />}></Route>
+
         <Route path="/cart" element={<Cart />}></Route>
         <Route path="/ProceedToOrder" element={<ProceedToOrder />}></Route>
         <Route path="/ordersuccess" element={<OrderSuccess />}></Route>
@@ -46,7 +50,6 @@ function App() {
         <Route path="/remotepolicy" element={<RemotePolicy />}></Route>
         <Route path="/policy" element={<Policy />}></Route>
         <Route path="/insurance" element={<Insurance />}></Route>
-        <Route path="/login" element={<LoginForm />}></Route>
         <Route
           path="/sanpham/:sanphamid"
           element={<ProductsDetailsClient />}

@@ -9,29 +9,36 @@ import Base from "./components/Base";
 import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { CartProvider } from "./context/Cartcontext";
+import { Provider } from "react-redux";
+import { store, persistor } from "./redux/store";
+import { PersistGate } from "redux-persist/integration/react";
 import "react-toastify/dist/ReactToastify.css";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <CartProvider>
-      <BrowserRouter>
-        {/* <BaseAdmin></BaseAdmin>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <CartProvider>
+          <BrowserRouter>
+            {/* <BaseAdmin></BaseAdmin>
         <AppAdmin /> */}
 
-        <App />
-        <ToastContainer
-          position="top-right"
-          autoClose={1500}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
-      </BrowserRouter>
-    </CartProvider>
+            <App />
+            <ToastContainer
+              position="top-right"
+              autoClose={1500}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+            />
+          </BrowserRouter>
+        </CartProvider>
+      </PersistGate>
+    </Provider>
   </React.StrictMode>
 );
 

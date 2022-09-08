@@ -71,7 +71,6 @@ const AdminDetailsProduct = () => {
             <th className="py-3 px-1">Sản Phẩm</th>
             <th className="py-3 px-1">Màu Trong Kho</th>
             <th className="py-3 px-1">Ram</th>
-            <th className="py-3 px-1">Số Lượng Theo Màu</th>
             <th className="py-3 px-1">Đơn Giá Theo Ram</th>
           </tr>
         </thead>
@@ -118,15 +117,6 @@ const AdminDetailsProduct = () => {
                           }
                         })}
                     </th>
-                    <th className="px-16">
-                      {detalsdata &&
-                        detalsdata.length > 0 &&
-                        detalsdata.map((items) => {
-                          if (item._id === items._id) {
-                            return <span key={uuidv4()}>{items.soLuong}</span>;
-                          }
-                        })}
-                    </th>
                     <th className="">
                       {detalsdata &&
                         detalsdata.length > 0 &&
@@ -144,8 +134,9 @@ const AdminDetailsProduct = () => {
                         })}
                     </th>
                     <th className="">
-                      <button className="border flex border-blue-500 ml-4 py-1 rounded-2xl bg-blue-500 text-white">
-                        <svg
+                      <button>
+                        {/* <button className="border flex border-blue-500 ml-4 py-1 rounded-2xl bg-blue-500 text-white"> */}
+                        {/* <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="16"
                           height="16"
@@ -154,7 +145,7 @@ const AdminDetailsProduct = () => {
                           viewBox="0 0 16 16"
                         >
                           <path d="M13.354.646a1.207 1.207 0 0 0-1.708 0L8.5 3.793l-.646-.647a.5.5 0 1 0-.708.708L8.293 5l-7.147 7.146A.5.5 0 0 0 1 12.5v1.793l-.854.853a.5.5 0 1 0 .708.707L1.707 15H3.5a.5.5 0 0 0 .354-.146L11 7.707l1.146 1.147a.5.5 0 0 0 .708-.708l-.647-.646 3.147-3.146a1.207 1.207 0 0 0 0-1.708l-2-2zM2 12.707l7-7L10.293 7l-7 7H2v-1.293z" />
-                        </svg>
+                        </svg> */}
                         <p>Sửa</p>
                       </button>
                     </th>

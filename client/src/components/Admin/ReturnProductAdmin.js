@@ -42,7 +42,7 @@ const ReturnProductAdmin = () => {
                       : ""
                   }`}
                 >
-                  <th>{item.maDonHangKhachDoiTra}</th>
+                  <th className="py-5">{item.maDonHangKhachDoiTra}</th>
                   <th>{item.hoTenKhachDoiTra}</th>
                   <th>{item.soDienThoatKhachDoiTra || ""}</th>
                   <th>{item.emailKhachDoiTra}</th>

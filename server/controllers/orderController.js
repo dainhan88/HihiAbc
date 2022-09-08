@@ -225,3 +225,52 @@ exports.getProfitMonthly = (req, res) => {
     )
     .sort({ _id: 1 });
 };
+
+//
+exports.getOrderByDateRange = (req, res) => {
+  console.log(req.params);
+  order
+    .aggregate(
+      [
+        {
+          $project: {
+            trangThai: 1,
+            ngayDat: 1,
+            // day: { $dayOfMonth: "$updatedAt" },
+            // month: { $month: "$updatedAt" },
+            // year: { $year: "$updatedAt" },
+            tongTien: 1,
+          },
+        },
+        {
+          $match: {
+            trangThai: "Đã giao",
+            ngayDat: {
+              $gte: new Date(req.params.startDate),
+              $lte: new Date(req.params.endDate),
+            },
+          },
+        },
+        {
+          $group: {
+            _id: { $dateToString: { format: "%d/%m/%Y", date: "$ngayDat" } },
+            tongTien: { $sum: "$tongTien" },
+            count: { $sum: 1 },
+            ngayDat: { $first: "$ngayDat" },
+          },
+        },
+        {
+          $project: {
+            tongTien: 1,
+            count: 1,
+            ngayDat: 1,
+          },
+        },
+      ],
+      (err, orders) => {
+        if (err) res.send(err);
+        res.json(orders);
+      }
+    )
+    .sort({ ngayDat: 1 });
+};

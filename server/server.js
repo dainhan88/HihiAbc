@@ -1,8 +1,11 @@
 // import dependencies
 const express = require("express");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 const logger = require("morgan");
+const cors = require("cors");
+const dotenv = require("dotenv");
 const db = require("./config/database/connectdb");
 const PORT = 3001;
 
@@ -18,6 +21,9 @@ const routes = require("./routes");
 db.connect();
 const app = express();
 app.use(bodyParser.json());
+app.use(express.json());
+app.use(cors());
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(logger("dev"));
 

@@ -67,9 +67,74 @@ exports.countItemsByState = (req, res) => {
         $match: { tinhTrangXuLyYeuCau: req.params.status },
       },
     ],
-    (err, order) => {
+    (err, warrantyclaim) => {
       if (err) res.send(err);
-      res.json(order);
+      res.json(warrantyclaim);
+    }
+  );
+};
+
+exports.findWarrantyclaimByQuery = (req, res) => {
+  const findName = req.params.query;
+  warrantyclaim.find(
+    {
+      soDienThoatKhachYeuCau: {
+        $regex: ".*" + findName + ".*",
+        $options: "$gi",
+      },
+    },
+    (err, warrantyclaim) => {
+      if (err) res.send(err);
+      res.join(warrantyclaim);
+    }
+  );
+};
+
+exports.getwarrantyclaimByCondition = (req, res) => {
+  console.log();
+  if (req.params.query.length <= 10) {
+    req.params.query = req.params.query;
+  } else {
+    req.params.query = mongoose.Types.ObjectId(req.params.query);
+  }
+  if (req.params.query == "" || req.params.query == undefined) {
+    warrantyclaim.find({}, (err, warrantyclaims) => {
+      if (err) res.send(err);
+      res.json(warrantyclaims);
+    });
+  }
+  warrantyclaim.aggregate(
+    [
+      {
+        $match: {
+          $or: [
+            {
+              _id: req.params.query,
+            },
+            {
+              soDienThoatKhachYeuCau: req.params.query,
+            },
+          ],
+          // $or: [
+          //   {
+          //     _id: {
+          //       $regex: ".*" + req.params.query + ".*",
+          //       $options: "$gi",
+          //     },
+          //   },
+          //   {
+          //     soDienThoatKhachYeuCau: {
+          //       $regex: ".*" + req.params.query + ".*",
+          //       $options: "$gi",
+          //     },
+          //   },
+          // ],
+        },
+      },
+    ],
+    (err, warrantyclaim) => {
+      if (err) res.send(err);
+      res.json(warrantyclaim);
     }
   );
 };

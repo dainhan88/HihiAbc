@@ -14,11 +14,11 @@ const Order = () => {
     });
   }, []);
 
-  const handleUpdateStateOrder = (id, state) => {
-    axios.put(`/api/order/${id}`, { trangThai: state }).then((res) => {
-      console.log(res);
-    });
-  };
+  // const handleUpdateStateOrder = (id, state) => {
+  //   axios.put(`/api/order/${id}`, { trangThai: state }).then((res) => {
+  //     console.log(res);
+  //   });
+  // };
 
   return (
     <div>

@@ -1,9 +1,29 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useCallback, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import WarrantyClaim from "./WarrantyClaim";
+import _debounce from "lodash/debounce";
+import { v4 as uuidv4 } from "uuid";
 
 const Insurance = () => {
   const [show, setShow] = useState();
+  const [SearchData, setSearchData] = useState();
+  const refSearch = useRef();
+  const fetchDataWithSearch = (key) => {
+    axios.get(`/api/warrantyclaim/search/query=${key}`).then((res) => {
+      setSearchData(res.data);
+    });
+  };
+  const debounceDropDown = useCallback(
+    _debounce((nextValue) => fetchDataWithSearch(nextValue), 1000),
+    []
+  );
+  const handleSearchChange = (e) => {
+    if (refSearch.current?.value === "") {
+      setSearchData("");
+    }
+    debounceDropDown(refSearch.current?.value);
+  };
   return (
     <div className="page-container">
       <h1 className="text-center uppercase text-red-600 font-bold text-[35px] mt-10">
@@ -24,11 +44,17 @@ const Insurance = () => {
         </h2>
         <div className="flex mt-5 justify-center">
           <input
-            type="text"
-            placeholder="Nhập Mã Đơn Hàng Của Quý Khách"
+            type="tel"
+            maxLength={"10"}
+            placeholder="Nhập Số Điện Thoại Của Quý Khách"
             className="border px-7 border-black rounded-xl w-[500px] h-[50px]"
+            ref={refSearch}
           />
-          <button className="flex gap-x-1 text-white rounded-lg text-[30px] bg-cyan-600 border mx-1 px-2">
+
+          <button
+            className="flex gap-x-1 text-white hover:bg-cyan-900 transition-all rounded-lg text-[30px] bg-cyan-600 border mx-1 px-2"
+            onClick={handleSearchChange}
+          >
             <p>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -44,8 +70,78 @@ const Insurance = () => {
             <p className="">Tra Cứu</p>
           </button>
         </div>
+        {SearchData &&
+          SearchData.length > 0 &&
+          SearchData.map((item, index) => {
+            return (
+              <div>
+                <p className=" mt-7 ml-80 font-bold text-[20px] ">
+                  *Kết quả tìm được
+                </p>
+                <table className="w-[700px]  ml-80 text-sm text-left text-gray-500 ">
+                  <thead className="text-[22px]  text-orange-500 uppercase bg-gray-50 ">
+                    <tr>
+                      <th className="py-3">Họ Tên</th>
+                      <th className="">Số Điện Thoại</th>
+                      <th className="">Email</th>
+                      <th className="">Trạng Thái</th>
+                    </tr>
+                  </thead>
+
+                  <tbody className="text-[18px]">
+                    <th>
+                      {SearchData &&
+                        SearchData.length > 0 &&
+                        SearchData.map((item, index) => {
+                          return (
+                            <div className="" key={uuidv4()}>
+                              <span>{item.hoTenKhachYeuCau}</span>
+                            </div>
+                          );
+                        })}
+                    </th>
+                    <th>
+                      {SearchData &&
+                        SearchData.length > 0 &&
+                        SearchData.map((item, index) => {
+                          return (
+                            <div className="" key={uuidv4()}>
+                              <span>{item.soDienThoatKhachYeuCau}</span>
+                            </div>
+                          );
+                        })}
+                    </th>
+                    <th>
+                      {SearchData &&
+                        SearchData.length > 0 &&
+                        SearchData.map((item, index) => {
+                          return (
+                            <div className="" key={uuidv4()}>
+                              <span>{item.emailKhachYeuCau}</span>
+                            </div>
+                          );
+                        })}
+                    </th>
+                    <th>
+                      {SearchData &&
+                        SearchData.length > 0 &&
+                        SearchData.map((item, index) => {
+                          return (
+                            <div className="" key={uuidv4()}>
+                              <span className="text-red-600 italic uppercase">
+                                {item.tinhTrangXuLyYeuCau}
+                              </span>
+                            </div>
+                          );
+                        })}
+                    </th>
+                  </tbody>
+                </table>
+              </div>
+            );
+          })}
       </div>
-      <div className="flex gap-x-24 border border-emerald-400 w-[600px] mx-80 p-3  mt-20">
+      <div className="flex gap-x-24 border border-emerald-400 w-[600px] mx-80 p-3  mt-14">
         <div>
           <NavLink
             to="/policy"

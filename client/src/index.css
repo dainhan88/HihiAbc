@@ -2,10 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    a {
+        color: #fff;
+        text-decoration: none;
+    }
+}
+
 @layer components {
     .page-container { 
         width: 1280px;
         margin:0 auto;
     }
+
 }
 

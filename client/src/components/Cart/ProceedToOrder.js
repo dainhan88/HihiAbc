@@ -70,8 +70,8 @@ const ProceedToOrder = () => {
                     <div>
                       <input
                         required
-                        type="number"
-                        name="number"
+                        type="tel"
+                        name="tel"
                         maxLength="10"
                         {...register("soDienThoai")}
                         placeholder="Nhập Số Điện Thoại"

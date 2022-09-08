@@ -9,7 +9,63 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+
 import { Bar } from "react-chartjs-2";
+import { startOfDay, endOfDay, addDays, subDays, formatISO } from "date-fns";
+import { CustomProvider, DateRangePicker } from "rsuite";
+import vi from "date-fns/locale/vi";
+import "rsuite/dist/rsuite.css";
+
+const Calendar = {
+  sunday: "CN",
+  monday: "T2",
+  tuesday: "T3",
+  wednesday: "T4",
+  thursday: "T5",
+  friday: "T6",
+  saturday: "T7",
+  ok: "OK",
+  /**
+   * Format of the string is based on Unicode Technical Standard #35:
+   * https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table
+   **/
+  formattedMonthPattern: "MMM yyyy",
+  formattedDayPattern: "dd MMM yyyy",
+  dateLocale: vi,
+};
+
+// /////////////////////////////////////////////////////////////////
+const Ranges = [
+  {
+    label: "Hôm nay",
+    value: [startOfDay(new Date()), endOfDay(new Date())],
+  },
+  {
+    label: "Hôm qua",
+    value: [
+      startOfDay(addDays(new Date(), -1)),
+      endOfDay(addDays(new Date(), -1)),
+    ],
+  },
+  {
+    label: "7 ngày trước",
+    value: [startOfDay(subDays(new Date(), 6)), endOfDay(new Date())],
+  },
+  {
+    label: "30 ngày trước",
+    value: [startOfDay(subDays(new Date(), 30)), endOfDay(new Date())],
+  },
+];
+const locale = {
+  Calendar,
+  Ranges,
+  DatePicker: {
+    ...Calendar,
+  },
+  DateRangePicker: {
+    ...Calendar,
+  },
+};
 
 ChartJS.register(
   CategoryScale,
@@ -48,6 +104,17 @@ const labels = [
   "Tháng 12",
 ];
 
+const data2 = (data, labels) => ({
+  labels,
+  datasets: [
+    {
+      label: "Dataset 1",
+      data: data,
+      backgroundColor: "rgba(255, 99, 132, 0.5)",
+    },
+  ],
+});
+
 export const data = {
   labels,
   datasets: [
@@ -76,7 +143,10 @@ const handleData = (data, labels) => {
 };
 
 const HomeAdmin = () => {
+  const [valueDate, setvalueDate] = React.useState();
   const [dataProfitMonthy, setDataProfitMonthy] = React.useState();
+  const [dataRange, setDataRange] = React.useState([]);
+  const [indexChart, setIndexChart] = React.useState(1);
   React.useEffect(() => {
     axios.get("/api/order/v2/getProfitMonthly").then((res) => {
       setDataProfitMonthy(res.data);
@@ -93,14 +163,62 @@ const HomeAdmin = () => {
       },
     ],
   };
+  const dataCustom = {
+    labels: dataRange.map((item) => {
+      return item?._id;
+    }),
+    datasets: [
+      {
+        label: "Doanh Thu",
+        data: dataRange.map((item) => {
+          return item?.tongTien;
+        }),
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+      },
+    ],
+  };
+  const handleChangeRageDate = async (value) => {
+    if (value === null) {
+      setIndexChart(1);
+      return;
+    }
+    let startDate = formatISO(value[0]);
+    let endDate = formatISO(value[1]);
+    setvalueDate(value);
+    await axios
+      .get(
+        `/api/order/getOrderByDateRange/startDate=${startDate}&endDate=${endDate}`
+      )
+      .then((response) => {
+        setDataRange(response.data);
+      });
+    setIndexChart(2);
+  };
   return (
     <div className="page-container ">
       <h1 className="text-red-500  font-bold uppercase mt-28 text-center text-[20px]">
         Hiệu Quả Bán Hàng
       </h1>
-      <div className=" w-[900px] mt-10 page-container">
-        <Bar options={options} data={dataProfit} />
-      </div>
+      {indexChart === 1 && (
+        <div className=" w-[900px] mt-10 page-container">
+          <Bar options={options} data={dataProfit} />
+        </div>
+      )}
+      {indexChart === 2 && (
+        <div className=" w-[900px] mt-10 page-container">
+          {dataRange && dataRange.length > 0 && (
+            <Bar options={options} data={dataCustom} />
+          )}
+        </div>
+      )}
+
+      <CustomProvider locale={locale}>
+        <DateRangePicker
+          ranges={Ranges}
+          onChange={handleChangeRageDate}
+          placeholder="Chọn"
+        ></DateRangePicker>
+      </CustomProvider>
     </div>
   );
 };

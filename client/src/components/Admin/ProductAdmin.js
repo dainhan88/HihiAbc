@@ -13,6 +13,11 @@ const ProductAdmin = () => {
       setData(res.data);
     });
   }, []);
+  useEffect(() => {
+    axios.get("/api/productsDetails/idSanPham").then((res) => {
+      setData(res.data);
+    });
+  }, []);
   console.log(data);
   const [tenSanPham, settenSanPham] = useState();
   const [maLoaiSanPham, setmaLoaiSanPham] = useState();
@@ -93,15 +98,35 @@ const ProductAdmin = () => {
                     <th className="px-6   font-bold">
                       {converCurences(item.donGiaSP)}đ
                     </th>
-                    <th
-                      className="cursor-pointer  text-blue-600 "
-                      onClick={() => {
-                        navigate(`/Admin/updateproductadmin/${item._id}`);
-                      }}
-                    >
-                      Sửa
+                    <th>
+                      <button
+                        className=" bg-green-600 rounded-lg p-2 w-[50px] text-white  border border-green-400 hover hover:bg-green-400 transition-all"
+                        onClick={() => {
+                          navigate(`/Admin/adminproductdetails/${item._id}`);
+                        }}
+                      >
+                        Xem
+                      </button>
                     </th>
-                    <th className="cursor-pointer  text-red-600 ">Xóa</th>
+                    <th>
+                      <button
+                        className=" bg-blue-600 rounded-lg p-2 w-[50px] text-white border  border-blue-400 hover hover:bg-blue-400 transition-all"
+                        onClick={() => {
+                          navigate(`/Admin/updateproductadmin/${item._id}`);
+                        }}
+                      >
+                        Sửa
+                      </button>
+                    </th>
+
+                    <th>
+                      <button
+                        className=" bg-red-600 rounded-lg p-2 w-[50px] text-white  border border-red-400 hover hover:bg-red-400 transition-all "
+                        onClick={() => {}}
+                      >
+                        Xóa
+                      </button>
+                    </th>
                   </tr>
                 </React.Fragment>
               );

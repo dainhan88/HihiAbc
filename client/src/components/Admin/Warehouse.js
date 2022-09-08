@@ -18,13 +18,13 @@ const Warehouse = () => {
   }, []);
 
   const [reload, setReload] = useState(false);
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    axios.post("/api/products", formData).then((response) => {
-      setReload(!reload);
-    });
-  };
+  // const handleFormSubmit = (e) => {
+  //   e.preventDefault();
+  //   const formData = new FormData();
+  //   axios.post("/api/products", formData).then((response) => {
+  //     setReload(!reload);
+  //   });
+  // };
   useEffect(() => {
     axios.get("/api/productDetails/v2/getAllInfo").then((res) => {
       console.log(...res.data[0].mausac);
@@ -37,8 +37,9 @@ const Warehouse = () => {
     });
   }, []);
   console.log(detalsdata);
+  console.log(dataSold);
   return (
-    <div className=" px-36 py-10 mx-36">
+    <div className="px-36 py-10 mx-36">
       <div className="relative">
         <table className="w-full text-sm text-left text-gray-500 ">
           <thead className="text-[18px] text-orange-500 uppercase bg-gray-50 ">

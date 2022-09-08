@@ -15,11 +15,25 @@ const OrderWait = () => {
     });
   }, [loading]);
 
-  const handleUpdateStateOrder = (id, state) => {
+  const handleUpdateStateOrder = (id, state, details) => {
     axios.put(`/api/order/${id}`, { trangThai: state }).then((res) => {
       console.log(res);
       setLoading(!loading);
     });
+    if (state === "Chờ xác nhận") {
+      details.forEach((detail) => {
+        console.log(detail);
+        axios
+          .put(
+            `/api/productDetails/updateQuantity/infoId=${detail._id}&mausac=${
+              detail.mausac
+            }&ram=${detail.ram}&quantity=${-detail.quantity}`
+          )
+          .then((response) => {
+            console.log(response);
+          });
+      });
+    }
   };
 
   return (
@@ -67,13 +81,19 @@ const OrderWait = () => {
                           className="px-2 uppercase font-bold text-red-500 cursor-pointer"
                           id="personlist"
                           onChange={(e) => {
-                            setStateOrder(e.target.value);
+                            handleUpdateStateOrder(
+                              item._id,
+                              e.target.value,
+                              item.thongTinChiTiet
+                            );
                           }}
                         >
-                          <option value="">{item.trangThai}</option>
+                          <option value={item.trangThai}>
+                            {item.trangThai}
+                          </option>
                           <option value="Chờ xác nhận">Chờ xác nhận</option>
                           <option value="Đang giao">Đang Giao</option>
-                          <option value="Đã giao">Đã Giao</option>
+                          {/* <option value="Đã giao">Đã Giao</option> */}
                         </select>
                         <th className="px-6 uppercase font-bold text-red-500">
                           {formatDate(new Date(item.ngayDat))}
@@ -82,10 +102,14 @@ const OrderWait = () => {
                           <button
                             className="px-6 justify-center cursor-pointer border bg-red-700 border-red-700 rounded-lg hover:text-black hover:bg-slate-600 transition-all uppercase font-bold text-white"
                             onClick={() => {
-                              handleUpdateStateOrder(item._id, stateOrder);
+                              handleUpdateStateOrder(
+                                item._id,
+                                stateOrder,
+                                item.thongTinChiTiet
+                              );
+                              setLoading(!loading);
                             }}
                           >
-                            {" "}
                             Cập Nhật
                           </button>
                         </th>

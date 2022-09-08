@@ -12,15 +12,27 @@ const OrderWait = () => {
     axios.get(`/api/order/getOrderByState/${STATE}`).then((res) => {
       setDataOrder(res.data);
     });
+    console.log("re-render");
   }, [loading]);
 
-  const handleUpdateStateOrder = (id, state) => {
+  const handleUpdateStateOrder = (id, state, details) => {
     axios.put(`/api/order/${id}`, { trangThai: state }).then((res) => {
       console.log(res);
-      setLoading(!loading);
+      // setLoading(!loading);
     });
+    if (state === "Đã giao" || state === "Đang giao") {
+      details.forEach((detail) => {
+        console.log(detail);
+        axios
+          .put(
+            `/api/productDetails/updateQuantity/infoId=${detail._id}&mausac=${detail.mausac}&ram=${detail.ram}&quantity=${detail.quantity}`
+          )
+          .then((response) => {
+            console.log(response);
+          });
+      });
+    }
   };
-
   return (
     <div>
       <div className=" px-10">
@@ -69,15 +81,39 @@ const OrderWait = () => {
                         <select
                           className="px-2 uppercase font-bold text-red-500 cursor-pointer"
                           id="personlist"
-                          onChange={(e) => {
-                            setStateOrder(e.target.value);
+                          onChange={async (e) => {
+                            handleUpdateStateOrder(
+                              item._id,
+                              e.target.value,
+                              item.thongTinChiTiet
+                            );
+                            setLoading(!loading);
                           }}
                         >
-                          <option value="">{item.trangThai}</option>
-                          <option value="Chờ xác nhận">Chờ xác nhận</option>
-                          <option value="Đang giao">Đang Giao</option>
-                          <option value="Đã giao">Đã Giao</option>
-                          <option value="Đã giao">Hủy Đơn</option>
+                          <option
+                            value="Chờ xác nhận"
+                            // selected={item.trangThai === "Chờ xác nhận"}
+                          >
+                            Chờ xác nhận
+                          </option>
+                          <option
+                            value="Đang giao"
+                            // selected={item.trangThai === "Đang giao"}
+                          >
+                            Đang Giao
+                          </option>
+                          <option
+                            value="Đã giao"
+                            // selected={item.trangThai === "Đã giao"}
+                          >
+                            Đã Giao
+                          </option>
+                          <option
+                            value="Hủy Đơn"
+                            // selected={item.trangThai === "Hủy Đơn"}
+                          >
+                            Hủy Đơn
+                          </option>
                         </select>
                         <th className="px-6 uppercase font-bold text-red-500">
                           {formatDate(new Date(item.ngayDat))}
@@ -86,7 +122,11 @@ const OrderWait = () => {
                           <button
                             className="px-6 justify-center cursor-pointer border bg-red-700 border-red-700 rounded-lg hover:text-black hover:bg-slate-600 transition-all uppercase font-bold text-white"
                             onClick={() => {
-                              handleUpdateStateOrder(item._id, stateOrder);
+                              handleUpdateStateOrder(
+                                item._id,
+                                item.trangThai,
+                                item.thongTinChiTiet
+                              );
                             }}
                           >
                             {" "}

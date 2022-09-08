@@ -42,7 +42,7 @@ const WarrantyClaimAdmin = () => {
                       : ""
                   }`}
                 >
-                  <th>{item.maDonHangKhachYeuCau}</th>
+                  <th className="py-5">{item.maDonHangKhachYeuCau}</th>
                   <th>{item.hoTenKhachYeuCau}</th>
                   <th>{item.soDienThoatKhachYeuCau || ""}</th>
                   <th>{item.emailKhachYeuCau}</th>

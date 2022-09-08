@@ -125,9 +125,9 @@ exports.getAllProductDetails = (req, res) => {
 
 exports.UpdateQuantity = (req, res) => {
   console.log(req.params);
-  productdetails.updateOne(
+  productDetails.updateOne(
     {
-      productdetailsId: new mongoose.Types.ObjectId(req.params.infoId),
+      idSanPham: new mongoose.Types.ObjectId(req.params.infoId),
       mauSac: req.params.mausac,
       ram: req.params.ram,
     },
