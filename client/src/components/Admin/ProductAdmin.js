@@ -70,6 +70,7 @@ const ProductAdmin = () => {
             <th className="py-3 px-6">Hãng</th>
             <th className="py-3 px-6">Số Lượng</th>
             <th className="py-3 px-6">Đơn Giá</th>
+            <th className="py-3 px-6">Hỗ Trợ</th>
           </tr>
         </thead>
         <tbody className="text-[14px] ">
@@ -98,7 +99,7 @@ const ProductAdmin = () => {
                     <th className="px-6   font-bold">
                       {converCurences(item.donGiaSP)}đ
                     </th>
-                    <th>
+                    <th className="">
                       <button
                         className=" bg-green-600 rounded-lg p-2 w-[50px] text-white  border border-green-400 hover hover:bg-green-400 transition-all"
                         onClick={() => {
@@ -107,19 +108,16 @@ const ProductAdmin = () => {
                       >
                         Xem
                       </button>
-                    </th>
-                    <th>
+
                       <button
-                        className=" bg-blue-600 rounded-lg p-2 w-[50px] text-white border  border-blue-400 hover hover:bg-blue-400 transition-all"
+                        className=" mx-1 bg-blue-600 rounded-lg p-2 w-[50px] text-white border  border-blue-400 hover hover:bg-blue-400 transition-all"
                         onClick={() => {
                           navigate(`/Admin/updateproductadmin/${item._id}`);
                         }}
                       >
                         Sửa
                       </button>
-                    </th>
 
-                    <th>
                       <button
                         className=" bg-red-600 rounded-lg p-2 w-[50px] text-white  border border-red-400 hover hover:bg-red-400 transition-all "
                         onClick={() => {}}

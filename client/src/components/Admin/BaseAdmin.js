@@ -2,6 +2,9 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { createAxios } from "../../createInstance";
+import { logOutSuccess } from "../../redux/authSlice";
+import { logOut } from "../../redux/apiRequest";
 
 const BaseAdmin = ({ children }) => {
   const user = useSelector((state) => state.auth.login.currentUser);
@@ -14,12 +17,19 @@ const BaseAdmin = ({ children }) => {
   const trangThai = "Chờ xác nhận";
   const warrantyStatus = "Chờ xử lý";
   const ReturnStatus = "Chờ xử lý";
+  const accessToken = user?.accessToken;
+  const id = user?._id;
+  const dispatch = useDispatch();
+  let axiosJWT = createAxios(user, dispatch, logOutSuccess);
   // console.log(user);
   useEffect(() => {
     if (!user?.admin) {
       navigate("/login");
     }
   }, []);
+  const handleOnLogout = () => {
+    logOut(dispatch, id, navigate, accessToken, axiosJWT);
+  };
   useEffect(() => {
     axios.get(`/api/order/getOrderByState/${trangThai}`).then((res) => {
       setDataOrder(res.data);
@@ -79,7 +89,7 @@ const BaseAdmin = ({ children }) => {
               to="./order"
             >
               Quản Lý Đơn Hàng
-              <div className="absolute animate-pulse  top-[-15px] right-[-20px] w-6 h-6 text-center text-white bg-red-600 rounded-full">
+              <div className="absolute animate-pulse leading-6  top-[-15px] right-[-20px] w-6 h-6 text-center text-white bg-red-600 rounded-full">
                 {dataOrder?.length}
               </div>
             </NavLink>
@@ -115,7 +125,7 @@ const BaseAdmin = ({ children }) => {
               to="./warrantyclaimadmin"
             >
               Yêu Cầu BHSP
-              <div className="absolute animate-pulse  top-[-15px] right-[-20px] w-6 h-6 text-center text-white bg-red-600 rounded-full">
+              <div className="absolute animate-pulse  top-[-15px] right-[-20px] w-6 h-6 text-center  leading-6 text-white bg-red-600 rounded-full">
                 {countWarranty}
               </div>
             </NavLink>
@@ -129,10 +139,13 @@ const BaseAdmin = ({ children }) => {
               to="./returnproductadmin"
             >
               Yêu Cầu ĐTSP
-              <div className="absolute animate-pulse  top-[-15px] right-[-20px] w-6 h-6 text-center text-white bg-red-600 rounded-full">
+              <div className="absolute animate-pulse  top-[-15px] right-[-20px] w-6 h-6 text-center  leading-6 text-white bg-red-600 rounded-full">
                 {countReturn}
               </div>
             </NavLink>
+            <span className="cursor-pointer" onClick={handleOnLogout}>
+              Đăng xuất
+            </span>
           </div>
         </div>
       </div>

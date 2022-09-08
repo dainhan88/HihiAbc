@@ -28,6 +28,7 @@ const WarrantyClaimAdmin = () => {
             <th className="py-3 mx-6">Số Điện Thoại</th>
             <th className="py-3 px-6">Email</th>
             <th className="py-3 px-6">Lý Do</th>
+            <th className="py-3 px-6">Trạng Thái</th>
           </tr>
         </thead>
         <tbody>

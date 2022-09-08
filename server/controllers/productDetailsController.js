@@ -34,7 +34,7 @@ exports.getProductDetail = (req, res) => {
       {
         $group: {
           _id: "$idSanPham",
-          mausac: { $push: "$mauSac" },
+          mausac: { $addToSet: "$mauSac" },
           ram: { $push: "$ram" },
           gia: { $push: "$donGia" },
         },
@@ -54,9 +54,10 @@ exports.getInfoProductDetails = (req, res) => {
       {
         $group: {
           _id: "$idSanPham",
-          mausac: { $push: "$mauSac" },
+          mausac: { $addToSet: "$mauSac" },
           ram: { $push: "$ram" },
           gia: { $push: "$donGia" },
+          giaCu: { $push: "$giaCu" },
         },
       },
     ],

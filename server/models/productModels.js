@@ -23,6 +23,7 @@ const productSchema = new Schema(
       type: String,
       required: "Đơn Giá Không Được Để Trống",
     },
+
     cpu: {
       type: String,
     },

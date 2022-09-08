@@ -20,6 +20,10 @@ const productDetailsSchema = new Schema(
       type: Number,
       required: "Đơn Giá Không Được Để Trống",
     },
+    giaCu: {
+      type: Number,
+      required: "not null and not empty",
+    },
     soLuong: {
       type: Number,
       required: "Số Lượng Không Được Để Trống",

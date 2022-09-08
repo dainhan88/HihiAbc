@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import ProductAdmin from "./ProductAdmin";
 
 const ProductDetailsAdmin = () => {
   const [data, setData] = useState([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     axios.get("/api/products").then((res) => {
       // console.log(res.data);
@@ -18,7 +18,9 @@ const ProductDetailsAdmin = () => {
 
   const handleOnSubmit = (data) => {
     axios.post("/api/productDetails", data).then((data) => {
-      console.log(data);
+      if (data.status === 200) {
+        navigate("/admin/createdetailssanpham");
+      }
     });
   };
   return (
@@ -87,6 +89,17 @@ const ProductDetailsAdmin = () => {
                     placeholder="Nhập Đơn Giá Sản Phẩm"
                     className="py-3  border boder-gray-300 rounded-lg px-12   my-2"
                     {...register("donGia")}
+                    required
+                  />
+                </div>
+                <div className="flex">
+                  <p className="w-36 my-5"> Giá cũ:</p>
+                  <input
+                    type="text"
+                    name="giaCu"
+                    placeholder="Giá cũ"
+                    className="py-3  border boder-gray-300 rounded-lg px-12   my-2"
+                    {...register("giaCu")}
                     required
                   />
                 </div>

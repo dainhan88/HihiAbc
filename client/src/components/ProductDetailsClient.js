@@ -14,9 +14,10 @@ const ProductsDetailsClient = () => {
   const { addToCart, calcQuantity } = useCart();
   // const { idSanPham } = useParams();
   // console.log(productId);
+
   useEffect(() => {
-    axios.get(`/api/products/${sanphamid}`).then((res) => {
-      setData(res.data);
+    axios.get(`/api/products/getInfoProduct/${sanphamid}`).then((res) => {
+      setData(res.data[0]);
     });
   }, [sanphamid]);
 
@@ -35,6 +36,7 @@ const ProductsDetailsClient = () => {
       mausac: detalsdata?.mausac[indexColor],
       ram: detalsdata?.ram[indexRam],
       gia: detalsdata?.gia[indexRam],
+      giaCu: detalsdata?.giaCu[indexRam],
       quantity: 1,
     };
     const quantity = await axios.get(
@@ -46,7 +48,7 @@ const ProductsDetailsClient = () => {
     }
     alert("Sản phẩm đã hết hàng");
   };
-
+  console.log(detalsdata);
   return (
     <div>
       <div className=" page-container ">
@@ -71,6 +73,9 @@ const ProductsDetailsClient = () => {
             <div className="w-[40%]">
               <span className="text-red-400 font-semibold text-xl">
                 Giá: {converCurences(detalsdata && detalsdata?.gia[indexRam])}đ
+              </span>
+              <span className="text-lg font-semibold text-[#7A86B6] line-through ml-3">
+                {converCurences(detalsdata && detalsdata?.giaCu[indexRam])}đ
               </span>
               <div className="px-10">
                 <div className="px-2 mb-5">
@@ -154,6 +159,7 @@ const ProductsDetailsClient = () => {
                 type="button"
                 className="px-4 py-2 font-semibold rounded-md bg-pink-600 text-white w-full hover:bg-red-900 ansition-all"
                 onClick={() => {
+                  console.log(detalsdata);
                   handleAddtoCart(detalsdata);
                 }}
               >

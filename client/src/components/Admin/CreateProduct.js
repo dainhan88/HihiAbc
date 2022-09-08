@@ -12,6 +12,7 @@ const CreateProduct = () => {
   //     setData(res.data);
   //   });
   // }, []);
+
   const [tenSanPham, settenSanPham] = useState();
   const [maLoaiSanPham, setmaLoaiSanPham] = useState();
   const [soLuong, setsoLuong] = useState();
@@ -19,6 +20,7 @@ const CreateProduct = () => {
   const [cpu, setcpu] = useState();
   const [oCUng, setoCUng] = useState();
   const [cardDoHoa, setcardDoHoa] = useState();
+  const [giaCu, setgiaCu] = useState();
   const [manHinh, setmanHinh] = useState();
   const [audio, setaudio] = useState();
   const [wedCam, setwedCam] = useState();
@@ -139,6 +141,7 @@ const CreateProduct = () => {
               />
               <br />
             </div>
+
             <div className="flex">
               <p className="w-36 my-5">Thông số CPU :</p>
               <input

@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const product = mongoose.model("product");
 const multer = require("multer");
 const path = require("path");
-
+const _ = require("lodash");
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "../client/public/images");
@@ -39,7 +39,6 @@ exports.create_a_product = (req, res) => {
     cpu: req.body.cpu,
     oCUng: req.body.oCUng,
     donGiaSP: req.body.donGiaSP,
-
     cardDoHoa: req.body.cardDoHoa,
     manHinh: req.body.manHinh,
     audio: req.body.audio,
@@ -186,4 +185,85 @@ exports.list_all_products_cate = (req, res) => {
       res.json(product);
     }
   );
+};
+
+exports.getInfoProduct = (req, res) => {
+  product
+    .aggregate(
+      [
+        {
+          $match: { _id: mongoose.Types.ObjectId(req.params.id) },
+        },
+        {
+          $lookup: {
+            from: "productDetails",
+            localField: "_id",
+            foreignField: "idSanPham",
+            as: "productInfo",
+          },
+        },
+        // {
+        //   $unwind: "$productInfo",
+        // },
+        // {
+        //   $group: {
+        //     _id: {
+        //       ID: "$_id",
+        //       color: "$productInfo.mauSac",
+        //     },
+        //     tenSanPham: { $first: "$tenSanPham" },
+        //     donGiaSP: { $first: "$donGiaSP" },
+        //     cpu: { $first: "$cpu" },
+        //     hinhanh: { $first: "$hinhanh" },
+        //     oCUng: { $first: "$oCUng" },
+        //     cardDoHoa: { $first: "$cardDoHoa" },
+        //   },
+        // },
+        // {
+        //   $lookup: {
+        //     from: "productDetails",
+        //     localField: "_id.ID",
+        //     foreignField: "idSanPham",
+        //     as: "productInfo",
+        //   },
+        // },
+
+        // {
+        //   $group: {
+        //     _id: "$productInfo.size",
+        //   }
+        // }
+      ],
+      (err, data) => {
+        if (err) res.send(err);
+        res.json(data);
+      }
+    )
+    .sort({ _id: 1 });
+};
+
+exports.filterProduct = (req, res) => {
+  if (_.isEmpty(req.query)) {
+    product.find({}, (err, products) => {
+      if (err) res.send(err);
+      res.json(products);
+    });
+  } else {
+    product.aggregate(
+      [
+        {
+          $match: {
+            tenSanPham: {
+              $regex: ".*" + req.query.name + ".*",
+              $options: "$gi",
+            },
+          },
+        },
+      ],
+      (err, product) => {
+        if (err) res.send(err);
+        res.json(product);
+      }
+    );
+  }
 };

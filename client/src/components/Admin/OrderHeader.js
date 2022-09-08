@@ -15,7 +15,7 @@ const OrderHeader = () => {
 
   return (
     <div>
-      <h1 className="font-bold text-red-600 text-center py-10 uppercase text-[25px]">
+      <h1 className="font-bold  leading-6 text-red-600 text-center py-10 uppercase text-[25px]">
         Quản Lý Đơn Hàng
       </h1>
       <div className="flex gap-x-[500px]">

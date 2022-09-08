@@ -114,6 +114,7 @@ const CartProvider = (props) => {
   };
 
   const updateQuantityIncrement = (index, cartItems) => {
+    // console.log("CartItem", cartItems[index]);
     cartItems[index] = {
       ...cartItems[index],
       quantity: cartItems[index].quantity + 1,
@@ -144,6 +145,24 @@ const CartProvider = (props) => {
     localStorage.removeItem("cart");
   };
 
+  const handleQuantityChange = (index, cartItems, quantity, maxQ = null) => {
+    if (cartItems[index].quantity < 1) return;
+    if (maxQ) {
+      cartItems[index] = {
+        ...cartItems[index],
+        quantity: +maxQ,
+      };
+    } else {
+      cartItems[index] = {
+        ...cartItems[index],
+        quantity: +quantity,
+      };
+    }
+    setValueCart(cartItems);
+    setQuantity(calcQuantity);
+    setCartItems(cartItems);
+  };
+
   const values = {
     addToCart,
     cartItems,
@@ -157,6 +176,7 @@ const CartProvider = (props) => {
     totalPrice,
     addToCartFromDetail,
     clearAllData,
+    handleQuantityChange,
   };
   return (
     <Cartcontext.Provider value={values} {...props}></Cartcontext.Provider>

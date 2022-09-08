@@ -20,9 +20,6 @@ root.render(
       <PersistGate loading={null} persistor={persistor}>
         <CartProvider>
           <BrowserRouter>
-            {/* <BaseAdmin></BaseAdmin>
-        <AppAdmin /> */}
-
             <App />
             <ToastContainer
               position="top-right"

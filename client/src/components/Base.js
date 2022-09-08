@@ -1,8 +1,27 @@
-import React from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import axios from "axios";
+import React, { useCallback } from "react";
+import { NavLink, Outlet, useOutletContext } from "react-router-dom";
 import { useCart } from "../context/Cartcontext";
+import _debounce from "lodash/debounce";
 const Base = ({ children }) => {
   const { calcQuantity } = useCart();
+  const [searchData, setSearchData] = React.useState("");
+  const fetchDataWithSearch = (key) => {
+    axios.get(`/api/products/v1/search?name=${key}`).then((res) => {
+      setSearchData(res.data);
+    });
+  };
+  const debounceDropDown = useCallback(
+    _debounce((nextValue) => fetchDataWithSearch(nextValue), 1000),
+    []
+  );
+  const handleSearchChange = (e) => {
+    if (e.target.value === "") {
+      setSearchData("");
+    }
+    debounceDropDown(e.target.value);
+  };
+  // console.log(searchData);
   return (
     <div className=" select-none">
       <div className="  bg-slate-200 p-3 h-50 w-100  font-[500]   ">
@@ -63,6 +82,7 @@ const Base = ({ children }) => {
             <input
               placeholder="Search... "
               className=" px-3 rounded-lg w-[300px] my-2 text-black outline-none outline-offset-0	border border-cyan-900 focus:outline-blue-400"
+              onChange={handleSearchChange}
             />
             <button className=" py-1 px-1 bg-cyan-600 text-white rounded-lg my-2 hover:bg-cyan-900 transition-all">
               Tìm Kiếm
@@ -72,7 +92,7 @@ const Base = ({ children }) => {
           {/* cart icons */}
           <NavLink
             to="/cart"
-            className="fixed  top-1/4 w-10 h-10 rounded-full bg-slate-400 flex items-center justify-center right-[50px] cursor-pointer"
+            className="fixed shadow-2xl  text-[#fff] top-1/4 w-10 h-10 rounded-full hover:text-white hover:bg-red-500 bg-slate-400 flex items-center justify-center right-[50px] cursor-pointer"
           >
             <span className="  ">
               <svg
@@ -94,9 +114,11 @@ const Base = ({ children }) => {
               {calcQuantity() || 0}
             </span>
           </NavLink>
+
+          {/* Zalo-Link */}
           <NavLink
             to="/zalo-link"
-            className="fixed top-3/4 w-14 h-10 rounded-full bg-white flex items-center justify-center right-[50px] cursor-pointer"
+            className="fixed rounded-lg top-3/4 w-14 h-10 shadow-2xl  bg-white flex items-center justify-center right-[50px] cursor-pointer  hover:scale-125"
           >
             <img src="https://laptop88.vn/template/giaodien_2022/images/zalo_sharelogo.png" />
           </NavLink>
@@ -118,7 +140,10 @@ const Base = ({ children }) => {
               </svg>
             </div>
             <div>
-              <a href="tel:0969885858" className="">
+              <a
+                href="tel:0969885858"
+                className="text-[#fff] no-underline hover:no-underline hover:text-white"
+              >
                 0969.885.858{" "}
               </a>
             </div>
@@ -135,8 +160,9 @@ const Base = ({ children }) => {
           </div>
         </div>
       </div>
-      <Outlet></Outlet>
-      <div className="page-container flex justify-center px-4 my-14">
+      <Outlet context={[searchData, setSearchData]}></Outlet>
+
+      <div className="page-container  flex justify-center px-4 my-14">
         <div className="page-container  flex gap-x-3 ">
           <span>
             <svg
@@ -244,7 +270,12 @@ const Base = ({ children }) => {
                   Thanh Xuân, Hà Nội
                 </li>
                 <li>
-                  <a href="tel: 0969885858">Điện thoại:{""} 0969885858</a>
+                  <a
+                    className="text-[#fff] hover:text-[#fff] hover:no-underline"
+                    href="tel: 0969885858"
+                  >
+                    Điện thoại:{""} 0969885858
+                  </a>
                 </li>
                 <li>Email: CongtyAntech@gmail.com</li>
               </ul>

@@ -199,6 +199,15 @@ const HomeAdmin = () => {
       <h1 className="text-red-500  font-bold uppercase mt-28 text-center text-[20px]">
         Hiệu Quả Bán Hàng
       </h1>
+      <div className="text-center">
+        <CustomProvider locale={locale}>
+          <DateRangePicker
+            ranges={Ranges}
+            onChange={handleChangeRageDate}
+            placeholder="Chọn Mốc Thời Gian"
+          ></DateRangePicker>
+        </CustomProvider>
+      </div>
       {indexChart === 1 && (
         <div className=" w-[900px] mt-10 page-container">
           <Bar options={options} data={dataProfit} />
@@ -211,14 +220,6 @@ const HomeAdmin = () => {
           )}
         </div>
       )}
-
-      <CustomProvider locale={locale}>
-        <DateRangePicker
-          ranges={Ranges}
-          onChange={handleChangeRageDate}
-          placeholder="Chọn"
-        ></DateRangePicker>
-      </CustomProvider>
     </div>
   );
 };

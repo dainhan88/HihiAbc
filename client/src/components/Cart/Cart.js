@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { useCart } from "../../context/Cartcontext";
 import { v4 as uuidv4 } from "uuid";
 import { converCurences } from "../../config";
 import { NavLink } from "react-router-dom";
 
 const Cart = () => {
+  // console.log("re-render");
+  // const [quantity, setQuantity] = useState(1);
+  const quantityRef = useRef();
   const {
     cartItems,
     totalPrice,
@@ -14,6 +17,12 @@ const Cart = () => {
     handleQuantityChange,
     updateQuantityIncrement,
   } = useCart();
+  const checkMaxQuantity = (cartItems, index) =>
+    cartItems[index].productInfo.find(
+      (item) =>
+        item.mauSac === cartItems[index].mausac &&
+        item.ram === cartItems[index].ram
+    ).soLuong;
 
   return (
     <div>
@@ -26,7 +35,7 @@ const Cart = () => {
         <div className=" w-[65%] ">
           {cartItems &&
             cartItems.length > 0 &&
-            cartItems.map((item) => {
+            cartItems.map((item, index) => {
               return (
                 <div
                   className="flex border rounded-2xl w-[100%] justify-center mx-auto mb-5 "
@@ -35,24 +44,29 @@ const Cart = () => {
                   <div className=" w-[40%]">
                     <img src={`../images/${item.hinhanh}`} alt="Error"></img>
                   </div>
-                  <div className=" px-9">
+                  <div className=" px-9 flex-1">
                     <span className="text-red-500 font-bold text-[20px]">
                       {item.maLoaiSanPham} {item.tenSanPham}
                     </span>
-                    <div className="flex">
-                      <p className="text-red-500 font-bold ">
+                    <div className="flex pt-2">
+                      <p className="text-red-500 font-bold text-[17px] ">
                         {converCurences(item.gia)}đ
                       </p>
-                      <p className="px-5 line-through opacity-60">35000000đ</p>
-                      <p className="bg-red-500 font-bold border rounded-2xl px-3 text-white ">
-                        Giảm 30%
+                      <p className="px-5 line-through opacity-60 my-0 mt-1 font-semibold">
+                        {converCurences(item.giaCu)}đ
+                      </p>
+                      <p className="bg-red-500 font-bold border rounded-2xl px-3 text-white my-0 ">
+                        {Math.round(
+                          ((item.gia - item.giaCu) / item.giaCu) * 100
+                        )}
+                        %
                       </p>
                     </div>
                     <p className="text-black font-semibold capitalize ">
                       {item.mausac} , {item.ram}
                     </p>
-                    <div className="flex ">
-                      Số Lượng:{" "}
+                    <div className="flex mt-4">
+                      <p className="mt-2">Số Lượng: </p>
                       <div className=" flex border rounded-md  ml-5 my-1 h-6">
                         <button
                           type="button"
@@ -76,14 +90,44 @@ const Cart = () => {
                           </svg>
                         </button>
                         <input
-                          value={item.quantity}
-                          // data-value={quantity}
+                          // value={quantity}
+                          defaultValue={item.quantity}
+                          // // data-value={quantity}
+
+                          onBlur={(e) => {
+                            const maxq = checkMaxQuantity(cartItems, index);
+                            if (+e.target.value >= maxq) {
+                              e.target.value = maxq;
+                            } else {
+                              handleQuantityChange(
+                                index,
+                                cartItems,
+                                e.target.value
+                              );
+                            }
+                          }}
+                          ref={quantityRef}
                           onChange={(e) => {
-                            handleQuantityChange(
-                              index,
-                              cartItems,
-                              e.target.value
-                            );
+                            const maxq = checkMaxQuantity(cartItems, index);
+                            if (+e.target.value >= maxq) {
+                              handleQuantityChange(
+                                index,
+                                cartItems,
+                                e.target.value,
+                                maxq
+                              );
+                            } else {
+                              handleQuantityChange(
+                                index,
+                                cartItems,
+                                e.target.value
+                              );
+                            }
+
+                            // if (+e.target.value >= maxq) {
+                            //   setQuantity(maxq);
+                            // }
+                            // setQuantity(e.target.value);
                           }}
                           className="w-[25px] outline-none border-none h-full text-center"
                         ></input>
@@ -92,7 +136,14 @@ const Cart = () => {
                           type="button"
                           className="w-[25px] flex items-center justify-center"
                           onClick={(e) => {
-                            updateQuantityIncrement(index, cartItems);
+                            // console.log(index);
+                            const maxq = checkMaxQuantity(cartItems, index);
+                            console.log(quantityRef.current.value);
+                            if (+quantityRef.current.value >= maxq) {
+                              quantityRef.current.value = maxq;
+                            } else {
+                              updateQuantityIncrement(index, cartItems);
+                            }
                           }}
                         >
                           <svg
@@ -110,7 +161,7 @@ const Cart = () => {
                         </button>
                       </div>
                       <p
-                        className="mx-7 cursor-pointer text-black font-semibold hover:text-red-600"
+                        className="mx-7 mt-2 cursor-pointer  font-semibold text-red-500 hover:text-red-600"
                         onClick={() => {
                           removeToCart(item._id, item.ram, item.color);
                         }}
