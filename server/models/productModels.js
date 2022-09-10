@@ -23,6 +23,10 @@ const productSchema = new Schema(
       type: String,
       required: "Đơn Giá Không Được Để Trống",
     },
+    donGiaCuSP: {
+      type: String,
+      required: "Đơn Giá Không Được Để Trống",
+    },
 
     cpu: {
       type: String,

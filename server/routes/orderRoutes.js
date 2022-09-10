@@ -10,7 +10,7 @@ routes.get("/v1/getSold", orderBuilder.getSold);
 routes.get("/getOrderByState/:trangThai", orderBuilder.getOrderByState);
 routes.put("/:idorder", orderBuilder.update_a_order);
 routes.delete("/:idorder", orderBuilder.delete_a_order);
-
+routes.get("/v1/search", orderBuilder.filterOrder);
 routes.get("/v2/getProfitNowMonth", orderBuilder.getProfitOrderNowMonth);
 routes.get("/v2/getProfitPermonth", orderBuilder.getProfitPerMonth);
 routes.get("/v2/getProfitMonthly", orderBuilder.getProfitMonthly);

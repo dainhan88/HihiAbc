@@ -23,6 +23,7 @@ const ProductAdmin = () => {
   const [maLoaiSanPham, setmaLoaiSanPham] = useState();
   const [soLuong, setsoLuong] = useState();
   const [donGiaSP, setdonGiaSP] = useState();
+  const [donGiaCuSP, setdonGiaCuSP] = useState();
   const [file, setFile] = useState();
   const [reload, setReload] = useState(false);
   const handleFormSubmit = (e) => {
@@ -32,6 +33,7 @@ const ProductAdmin = () => {
     formData.append("maLoaiSanPham", maLoaiSanPham);
     formData.append("soLuong", soLuong);
     formData.append("donGiaSP", donGiaSP);
+    formData.append("donGiaCuSP", donGiaCuSP);
     formData.append("hinhanh", file);
     axios.post("/api/products", formData).then((response) => {
       setReload(!reload);
@@ -70,6 +72,7 @@ const ProductAdmin = () => {
             <th className="py-3 px-6">Hãng</th>
             <th className="py-3 px-6">Số Lượng</th>
             <th className="py-3 px-6">Đơn Giá</th>
+            <th className="py-3 px-6">Giá Cũ</th>
             <th className="py-3 px-6">Hỗ Trợ</th>
           </tr>
         </thead>
@@ -98,6 +101,9 @@ const ProductAdmin = () => {
                     </th>
                     <th className="px-6   font-bold">
                       {converCurences(item.donGiaSP)}đ
+                    </th>
+                    <th className="px-6   font-bold">
+                      {converCurences(item.donGiaCuSP)}đ
                     </th>
                     <th className="">
                       <button

@@ -20,7 +20,7 @@ const CreateProduct = () => {
   const [cpu, setcpu] = useState();
   const [oCUng, setoCUng] = useState();
   const [cardDoHoa, setcardDoHoa] = useState();
-  const [giaCu, setgiaCu] = useState();
+  const [donGiaCuSP, setdonGiaCuSP] = useState();
   const [manHinh, setmanHinh] = useState();
   const [audio, setaudio] = useState();
   const [wedCam, setwedCam] = useState();
@@ -37,6 +37,7 @@ const CreateProduct = () => {
     formData.append("maLoaiSanPham", maLoaiSanPham);
     formData.append("soLuong", soLuong);
     formData.append("donGiaSP", donGiaSP);
+    formData.append("donGiaCuSP", donGiaCuSP);
     formData.append("cpu", cpu);
     formData.append("oCUng", oCUng);
     formData.append("cardDoHoa", cardDoHoa);
@@ -136,6 +137,19 @@ const CreateProduct = () => {
                 placeholder="Nhập Đơn Giá Sản Phẩm"
                 onChange={(e) => {
                   setdonGiaSP(e.target.value);
+                }}
+                className="py-3 px-12 border boder-gray-300 rounded-lg mx-2 my-2"
+              />
+              <br />
+            </div>
+            <div className="flex">
+              <p className="w-36 my-5">Giá Cũ :</p>
+              <input
+                type="text"
+                name="donGiaCuSP"
+                placeholder="Nhập Giá Cũ Sản Phẩm"
+                onChange={(e) => {
+                  setdonGiaCuSP(e.target.value);
                 }}
                 className="py-3 px-12 border boder-gray-300 rounded-lg mx-2 my-2"
               />

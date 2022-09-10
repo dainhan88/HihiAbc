@@ -1,6 +1,8 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
+import { useCart } from "../../context/Cartcontext";
+import _debounce from "lodash/debounce";
 
 const OrderHeader = () => {
   const [dataOrder, setDataOrder] = useState();
@@ -13,6 +15,23 @@ const OrderHeader = () => {
     });
   }, [loading]);
 
+  const { calcQuantity } = useCart();
+  const [searchData, setSearchData] = React.useState("");
+  const fetchDataWithSearch = (key) => {
+    axios.get(`/api/order/v1/search?name=${key}`).then((res) => {
+      setSearchData(res.data);
+    });
+  };
+  const debounceDropDown = useCallback(
+    _debounce((nextValue) => fetchDataWithSearch(nextValue), 1000),
+    []
+  );
+  const handleSearchChange = (e) => {
+    if (e.target.value === "") {
+      setSearchData("");
+    }
+    debounceDropDown(e.target.value);
+  };
   return (
     <div>
       <h1 className="font-bold  leading-6 text-red-600 text-center py-10 uppercase text-[25px]">
@@ -70,13 +89,14 @@ const OrderHeader = () => {
           <input
             placeholder="Search..."
             className=" px-5 rounded-lg w-[300px] my-2 text-black outline-none outline-offset-0	border border-cyan-900 focus:outline-blue-400"
+            onChange={handleSearchChange}
           />
           <button className=" py-1 px-1  bg-cyan-600 text-white rounded-lg my-2 hover:bg-cyan-900">
             Tìm Kiếm
           </button>
         </div>
       </div>
-      <Outlet></Outlet>
+      <Outlet context={[searchData, setSearchData]}></Outlet>
     </div>
   );
 };

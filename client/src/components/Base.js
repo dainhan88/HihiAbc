@@ -23,7 +23,7 @@ const Base = ({ children }) => {
   };
   // console.log(searchData);
   return (
-    <div className=" select-none">
+    <div className=" ">
       <div className="  bg-slate-200 p-3 h-50 w-100  font-[500]   ">
         <div className=" flex justify-between  text-white page-container gap-x-10">
           <div className=" flex py-3 gap-x-10">
@@ -33,16 +33,6 @@ const Base = ({ children }) => {
                 src="https://scontent.fhan15-1.fna.fbcdn.net/v/t1.15752-9/293791365_649899559426320_6480368660795726920_n.png?_nc_cat=101&ccb=1-7&_nc_sid=ae9488&_nc_ohc=SOmawXs48fUAX_fTzWQ&_nc_ht=scontent.fhan15-1.fna&oh=03_AVIwKctyqMjtIFdfoI5msPUdoQpI59HrFZxDrcobz-XdIg&oe=631B9E8B"
               />
             </NavLink>
-            {/* <NavLink
-              className={({ isActive }) =>
-                isActive
-                  ? "hover:text-zinc-400 inline-block text-cyan-600 px-2 rounded-lg "
-                  : "hover:text-zinc-400 inline-block text-white px-2 rounded-lg"
-              }
-              to="/"
-            >
-              Trang Chủ
-            </NavLink> */}
             <div>
               <NavLink
                 className={({ isActive }) =>
@@ -55,7 +45,7 @@ const Base = ({ children }) => {
                 Sản Phẩm
               </NavLink>
             </div>
-
+            <a href="https://bom.so/STloFg">ácc</a>
             <NavLink
               className={({ isActive }) =>
                 isActive
@@ -92,7 +82,7 @@ const Base = ({ children }) => {
           {/* cart icons */}
           <NavLink
             to="/cart"
-            className="fixed shadow-2xl  text-[#fff] top-1/4 w-10 h-10 rounded-full hover:text-white hover:bg-red-500 bg-slate-400 flex items-center justify-center right-[50px] cursor-pointer"
+            className="fixed shadow-2xl  text-[#fff] top-1/4 w-10 h-10 rounded-full hover:text-white hover:bg-red-500 bg-blue-500 flex items-center justify-center right-[50px] cursor-pointer"
           >
             <span className="  ">
               <svg
@@ -280,11 +270,6 @@ const Base = ({ children }) => {
                 <li>Email: CongtyAntech@gmail.com</li>
               </ul>
             </div>
-            {/* <div>
-              <a href="" className="text-lg">
-                Chính Sách Bảo Hành
-              </a>
-            </div> */}
           </div>
         </footer>
       </div>

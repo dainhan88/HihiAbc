@@ -29,6 +29,7 @@ const UpdateProductAdmin = () => {
       formData.append("maLoaiSanPham", label);
       formData.append("soLuong", data.soLuong);
       formData.append("donGiaSP", data.donGiaSP);
+      formData.append("donGiaCuSP", data.donGiaCuSP);
       formData.append("cpu", data.cpu);
       formData.append("oCUng", data.oCUng);
       formData.append("cardDoHoa", data.cardDoHoa);
@@ -42,7 +43,7 @@ const UpdateProductAdmin = () => {
       formData.append("tenSanPham", data.tenSanPham);
       formData.append("maLoaiSanPham", label);
       formData.append("soLuong", data.soLuong);
-      formData.append("donGiaSP", data.donGiaSP);
+      formData.append("donGiaCuSP", data.donGiaCuSP);
       formData.append("cpu", data.cpu);
       formData.append("oCUng", data.oCUng);
       formData.append("cardDoHoa", data.cardDoHoa);
@@ -147,6 +148,18 @@ const UpdateProductAdmin = () => {
                     placeholder="Nhập Đơn Giá Sản Phẩm"
                     defaultValue={data.donGiaSP}
                     {...register("donGiaSP")}
+                    className="py-3 px-12 border boder-gray-300 rounded-lg mx-2 my-2"
+                  />
+                  <br />
+                </div>
+                <div className="flex">
+                  <p className="w-36 my-5">Đơn Giá Sản Phẩm :</p>
+                  <input
+                    type="text"
+                    name="donGiaCuSP"
+                    placeholder="Nhập Giá Cũ Sản Phẩm"
+                    defaultValue={data.donGiaCuSP}
+                    {...register("donGiaCuSP")}
                     className="py-3 px-12 border boder-gray-300 rounded-lg mx-2 my-2"
                   />
                   <br />

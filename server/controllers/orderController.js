@@ -274,3 +274,30 @@ exports.getOrderByDateRange = (req, res) => {
     )
     .sort({ ngayDat: 1 });
 };
+
+//search
+exports.filterOrder = (req, res) => {
+  if (_.isEmpty(req.query)) {
+    order.find({}, (err, orders) => {
+      if (err) res.send(err);
+      res.json(orders);
+    });
+  } else {
+    order.aggregate(
+      [
+        {
+          $match: {
+            soDienThoai: {
+              $regex: ".*" + req.query.soDienThoai + ".*",
+              $options: "$gi",
+            },
+          },
+        },
+      ],
+      (err, order) => {
+        if (err) res.send(err);
+        res.json(order);
+      }
+    );
+  }
+};

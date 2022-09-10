@@ -23,9 +23,9 @@ const Returnpolicy = () => {
           xuất và AnTech Việt Nam
         </p>
         <div className="flex mt-4">
-          <p className="font-bold text-[18px] px-3">1. </p>
+          <p className="font-bold text-[18px] mt-1 px-3">1. </p>
 
-          <p className=" ">
+          <p className=" text-[15px]">
             Quý khách được quyền đổi máy mới nếu máy của Quý khách mắc lỗi kỹ
             thuật trong vòng 10 ngày kể từ thời điểm mua máy mới chính hãng và
             15 ngày đối với máy mới khác. Lỗi kỹ thuật này được xác định do nhà
@@ -42,15 +42,15 @@ const Returnpolicy = () => {
             mới 100% hoặc đổi sang dòng laptop cũ tại cửa hàng và áp dụng chính
             sách bảo hành đối với máy cũ.
             <br />{" "}
-            <span className="italic font-bold">
+            <span className="italic text-[15px] font-bold">
               - Chính sách đổi máy laptop mới chính hãng trong 10 ngày không áp
               dụng với sản phẩm của Apple.
             </span>
           </p>
         </div>
         <div className="flex">
-          <p className="font-bold text-[18px] px-3  ">2.</p>
-          <p>
+          <p className="font-bold text-[18px] mt-1 px-3  ">2.</p>
+          <p className="text-[15px]">
             Đối với sản phẩm linh kiện bộ nhớ trong ram hoặc ổ cứng laptop mới
             còn hoạt động bình thường và không có thay đổi về ngoại hình sản
             phẩm, sẽ áp dụng giá nhập lại 80% so với giá bán ban đầu trong tháng
@@ -59,12 +59,12 @@ const Returnpolicy = () => {
           </p>
         </div>
         <div className="flex">
-          <p className="font-bold text-[18px] px-3  ">3.</p>
-          <p>
+          <p className="font-bold text-[18px] mt-1 px-3  ">3.</p>
+          <p className="text-[15px]">
             Trong tháng đầu tiên kể từ ngày mua sản phẩm, AnTech Việt Nam sẽ
             nhận thu mua lại laptop mới với giá 80% so với giá bán ban đầu nếu
             sản phẩm hoạt động bình thường{" "}
-            <span className="italic">
+            <span className="italic text-[15px]">
               (Giá bán ban đầu là giá trị máy tại thời điểm mua hàng);
             </span>{" "}
             - Từ tháng thứ 2 tới tháng thứ 6 sẽ trừ mỗi tháng 5%; Từ tháng thứ 7
@@ -72,34 +72,38 @@ const Returnpolicy = () => {
             thu mua lại sẽ do cửa hàng định giá tùy vào thực tế tình trạng máy.
           </p>
         </div>
-        <div className="flex ">
-          <p className="font-bold w-24 ml-10 ">*Lưu ý:</p>
-          <p className="italic">
+        <div className="flex text-[15px]">
+          <p className="font-bold mr-3 ml-10 mt-2 ">*Lưu ý:</p>
+          <p className="italic ">
             Khi Quý khách bán lại máy, các phần quà hoặc khuyến mại (Có đơn giá
             tiền) ghi trên hóa đơn mua hàng bắt buộc phải đi kèm máy.
           </p>
         </div>
-        <p className="mx-10 italic">
+        <p className="mx-10 text-[15px] italic">
           Trong trường hợp Quý khách không cung cấp đủ, AnTech Việt Nam sẽ trừ
           đi tiền chênh lệch đúng bằng giá trị thể hiện trên hóa đơn của phần
           quà hoặc khuyến mại đó.
         </p>
         <div className="flex mt-1">
-          <p className="font-bold text-[18px] px-3 ">4.</p>
-          <p className="italic">
+          <p className="font-bold text-[18px] mt-1 px-3 ">4.</p>
+          <p className=" text-[15px]">
             Sản phẩm đã sửa chữa tại các hệ thống ngoài, AnTech Việt Nam sẽ {}
-            <span className=" font-bold">không thu mua lại.</span>
+            <span className=" italic font-bold text-[15px]">
+              không thu mua lại.
+            </span>
           </p>
         </div>
         <div className="flex">
-          <p className="font-bold text-[18px] px-3">5.</p>
-          Sản phẩm còn trong hạn bảo hành chính hãng
-          <span className=" font-bold italic ml-1"> nhưng bị lỗi</span>, giá thu
-          mua do cửa hàng quyết định.
+          <p className="font-bold text-[18px] mt-1 px-3">5.</p>
+          <p className="text-[15px]">
+            Sản phẩm còn trong hạn bảo hành chính hãng
+          </p>
+          <p className=" font-bold italic ml-1 text-[15px]"> nhưng bị lỗi</p>
+          <p className="text-[15px]">, giá thu mua do cửa hàng quyết định.</p>
         </div>
         <div className="flex">
-          <p className="font-bold text-[18px] px-3"> 6.</p>
-          <p>
+          <p className="font-bold text-[18px] mt-1 px-3"> 6.</p>
+          <p className="text-[15px]">
             Sản phẩm hết thời hạn bảo hành, hình thức xấu, có lỗi sẽ do AnTech
             Việt Nam định giá sản phẩm khi thu mua. *Mức giá thu mua ở trên chưa
             bao gồm các khoản trừ có thể phát sinh khi sản phẩm có sự thay đổi

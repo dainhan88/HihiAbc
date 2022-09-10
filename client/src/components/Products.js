@@ -78,6 +78,20 @@ const Products = () => {
                     <span> {item.tenSanPham} </span>
                     <span> {item.maLoaiSanPham} </span>
                     <br />
+                    <div className="flex justify-center gap-x-2">
+                      <span className="text-black text-sm line-through rounded-xl ml-14">
+                        {converCurences(item.donGiaCuSP)}đ
+                      </span>
+                      <p className="bg-red-500 w-auto font-bold border text-[10px] rounded-2xl px-3 text-white  ">
+                        {Math.round(
+                          ((item.donGiaSP - item.donGiaCuSP) /
+                            item.donGiaCuSP) *
+                            100
+                        )}
+                        %
+                      </p>
+                    </div>
+                    <br />
                     <span className="text-white text-lg bg-[#ff9300] font-semibold rounded-xl px-6 ">
                       {converCurences(item.donGiaSP)}đ
                     </span>
