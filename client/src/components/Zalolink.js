@@ -5,7 +5,7 @@ const Zalolink = () => {
     <div className="bg-slate-100">
       <div className="px-48 flex h-28 pt-10 justify-between bg-white shadow-md ">
         <div className="w-28">
-          <img src="https://o.remove.bg/downloads/b2edaed4-733a-4a71-bdcb-eb7371898383/zalo-text-removebg-preview.png" />
+          <img src="https://by.com.vn/oCLMR" />
         </div>
         <div className="">
           <a

@@ -18,5 +18,9 @@ routes.get(
   "/getOrderByDateRange/startDate=:startDate&?endDate=:endDate",
   orderBuilder.getOrderByDateRange
 );
+routes.get("/v3/getQuantityOderByPhone", orderBuilder.getQuantityOderByPhone);
+
+routes.get("/v1/count/:status", orderBuilder.countItemsByState);
+routes.get("/search/?query=:query", orderBuilder.getorderByCondition);
 
 module.exports = routes;

@@ -301,3 +301,134 @@ exports.filterOrder = (req, res) => {
     );
   }
 };
+
+//Đơn theo sdt
+exports.getQuantityOderByPhone = (req, res) => {
+  order.aggregate(
+    [
+      {
+        $group: {
+          _id: "$soDienThoai",
+          fullName: { $first: "$hoTen" },
+          address: { $first: "$diaChi" },
+          // count: { $sum: 1 },
+          total: {
+            $sum: {
+              $cond: {
+                if: { $eq: ["$trangThai", "Đã giao"] },
+                then: "$tongTien",
+                else: 0,
+              },
+            },
+          },
+          count: {
+            $sum: {
+              $cond: {
+                if: { $eq: ["$trangThai", "Đã giao"] },
+                then: 1,
+                else: 0,
+              },
+            },
+          },
+        },
+      },
+      { $sort: { count: -1 } },
+      { $limit: 5 },
+    ],
+    (err, orders) => {
+      if (err) res.send(err);
+      res.json(orders);
+    }
+  );
+};
+
+//tra cuu don hang danh cho khach hang
+exports.updateStatus = (req, res) => {
+  order.findByIdAndUpdate(
+    req.params.id,
+    { $set: { trangThai: req.body.trangThai } },
+    (err, result) => {
+      if (err) res.send(err);
+      res.json(result);
+    }
+  );
+};
+
+exports.countItemsByState = (req, res) => {
+  order.aggregate(
+    [
+      {
+        $match: { trangThai: req.params.status },
+      },
+    ],
+    (err, order) => {
+      if (err) res.send(err);
+      res.json(order);
+    }
+  );
+};
+
+exports.findorderByQuery = (req, res) => {
+  const findName = req.params.query;
+  order.find(
+    {
+      soDienThoai: {
+        $regex: ".*" + findName + ".*",
+        $options: "$gi",
+      },
+    },
+    (err, order) => {
+      if (err) res.send(err);
+      res.join(order);
+    }
+  );
+};
+
+exports.getorderByCondition = (req, res) => {
+  console.log();
+  if (req.params.query.length <= 10) {
+    req.params.query = req.params.query;
+  } else {
+    req.params.query = mongoose.Types.ObjectId(req.params.query);
+  }
+  if (req.params.query == "" || req.params.query == undefined) {
+    order.find({}, (err, orders) => {
+      if (err) res.send(err);
+      res.json(orders);
+    });
+  }
+  order.aggregate(
+    [
+      {
+        $match: {
+          $or: [
+            {
+              _id: req.params.query,
+            },
+            {
+              soDienThoai: req.params.query,
+            },
+          ],
+          // $or: [
+          //   {
+          //     _id: {
+          //       $regex: ".*" + req.params.query + ".*",
+          //       $options: "$gi",
+          //     },
+          //   },
+          //   {
+          //     soDienThoatKhachYeuCau: {
+          //       $regex: ".*" + req.params.query + ".*",
+          //       $options: "$gi",
+          //     },
+          //   },
+          // ],
+        },
+      },
+    ],
+    (err, order) => {
+      if (err) res.send(err);
+      res.json(order);
+    }
+  );
+};

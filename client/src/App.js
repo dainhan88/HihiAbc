@@ -32,6 +32,8 @@ import LoginForm from "./components/Admin/LoginForm";
 import WarrantyClaimAdmin from "./components/Admin/WarrantyClaimAdmin";
 import ReturnProductAdmin from "./components/Admin/ReturnProductAdmin";
 import Zalolink from "./components/Zalolink";
+import Abc from "./components/Admin/Abc";
+import OrderLookup from "./components/OrderLookup";
 
 function App() {
   return (
@@ -41,9 +43,9 @@ function App() {
       <Route path="/" element={<Base />}>
         <Route index element={<Home />}></Route>
         <Route path="/sanpham" element={<Products />}></Route>
-
         <Route path="/cart" element={<Cart />}></Route>
         <Route path="/ProceedToOrder" element={<ProceedToOrder />}></Route>
+        <Route path="/tra-cuu-don-hang" element={<OrderLookup />}></Route>
         <Route path="/ordersuccess" element={<OrderSuccess />}></Route>
         <Route path="/warrantypolicy" element={<WarrantyPolicy />}></Route>
         <Route path="/returnpolicy" element={<Returnpolicy />}></Route>
@@ -58,7 +60,7 @@ function App() {
 
       <Route path="/admin" element={<BaseAdmin />}>
         <Route path="homeadmin" element={<HomeAdmin />}></Route>
-        <Route path="createsanpham" element={<ProductAdmin />}></Route>
+        <Route path="productAdmin" element={<ProductAdmin />}></Route>
 
         <Route
           path="updateproductadmin/:sanphamid"
@@ -87,6 +89,7 @@ function App() {
           element={<AdminProductDetails />}
         ></Route>
         <Route path="warehouse" element={<Warehouse />}></Route>
+        <Route path="abc" element={<Abc />}></Route>
         <Route
           path="createdetailssanpham"
           element={<ProductDetailsAdmin />}

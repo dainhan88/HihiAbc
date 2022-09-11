@@ -25,40 +25,55 @@ const Products = () => {
   return (
     <div className="">
       <div className="flex page-container items-center text-white justify-around  bg-slate-50  h-full py-2 font-semibold rounded-md cursor-pointer ">
+        {/* Dell */}
         <a className="w-[120px] hover:scale-125" href="">
           <img
             alt=""
             src="https://logos-world.net/wp-content/uploads/2020/08/Dell-Logo.png"
           ></img>
         </a>
+
+        {/* Acer */}
         <a className="w-[120px] hover:scale-125" href="">
           <img
             alt=""
             src="https://cdn4.iconfinder.com/data/icons/flat-brand-logo-2/512/acer-512.png"
           ></img>
-          .
         </a>
-        <a className="w-[120px] hover:scale-125" href="">
+
+        {/* HP */}
+        <a className="w-[80px] hover:scale-125" href="">
           <img
             alt=""
-            src="https://scontent.fhan2-4.fna.fbcdn.net/v/t1.15752-9/289381457_3090461431266968_444394360137680767_n.png?_nc_cat=100&ccb=1-7&_nc_sid=ae9488&_nc_ohc=5urmUS3KoDcAX8eDR7O&_nc_ht=scontent.fhan2-4.fna&oh=03_AVLUnV66yOxmNsdjAu7GX9AkL_ymYRqkOQTwugMhhQq4Iw&oe=6302FE55"
+            src="https://cdn.cdnlogo.com/logos/h/82/hp-2012.svg"
           ></img>
         </a>
+
+        {/* MSI */}
         <a className="w-[120px] hover:scale-125" href="">
           <img
             alt=""
             src="https://cdn.iconscout.com/icon/free/png-256/msi-1-286075.png"
           ></img>
         </a>
-        <a className="w-[120px] hover:scale-125 " href="">
+
+        {/* Asus */}
+        <a className="w-[135px] hover:scale-125 " href="">
           <img
             alt=""
-            src="https://scontent.fhan2-4.fna.fbcdn.net/v/t1.15752-9/292743536_579658443794451_9121069499877505171_n.png?_nc_cat=103&ccb=1-7&_nc_sid=ae9488&_nc_ohc=Agb6g9_sgkgAX8R0zRu&_nc_ht=scontent.fhan2-4.fna&oh=03_AVJ1kq6ReSQiYBicpp2EmnpSBw_TvEbw1HzZjYpzZoCIwg&oe=630356ED"
+            src="https://cutewallpaper.org/24/asus-logo-png/asus-04df8-logo-1c5ee-history-7f287-meaning-0e3cb-symbol-7822c-png.png"
+          ></img>
+        </a>
+        {/* Apple */}
+        <a className="w-[76px] hover:scale-125 " href="">
+          <img
+            alt=""
+            src="https://o.remove.bg/downloads/31f0df64-c16d-46c5-b070-8b02846e7c55/apple-removebg-preview.png"
           ></img>
         </a>
       </div>
 
-      <div className="grid grid-cols-5  page-container ">
+      <div className="grid grid-cols-5 cursor-pointer page-container ">
         {data &&
           !searchData &&
           data.length > 0 &&
@@ -75,8 +90,8 @@ const Products = () => {
                 ></img>
                 <div className="mt-auto">
                   <div>
-                    <span> {item.tenSanPham} </span>
                     <span> {item.maLoaiSanPham} </span>
+                    <span> {item.tenSanPham} </span>
                     <br />
                     <div className="flex justify-center gap-x-2">
                       <span className="text-black text-sm line-through rounded-xl ml-14">

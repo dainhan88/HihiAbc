@@ -25,7 +25,7 @@ const Policy = () => {
           Chính sách bảo hành chính hãng
         </NavLink>
       </div>
-      <div className="mt-10 mb-44 ml-44">
+      <div className="mt-10 mb-[350px] ml-44">
         <NavLink
           to="/returnpolicy"
           className="uppercase  underline cursor-pointer text-red-600  text-[30px] hover:text-blue-600"
@@ -33,6 +33,14 @@ const Policy = () => {
           Chính sách đổi - trả sản phẩm
         </NavLink>
       </div>
+      <div id="fb-root"></div>
+      <script
+        async
+        defer
+        crossorigin="anonymous"
+        src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v14.0"
+        nonce="pBIdLwSO"
+      ></script>
     </div>
   );
 };

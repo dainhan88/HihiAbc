@@ -13,12 +13,13 @@ const AdminDetailsProduct = () => {
       setData(res.data);
     });
   }, []);
+
   useEffect(() => {
-    axios.get("/api/productDetails/v2/getAllInfo").then((res) => {
+    axios.get(`/api/productDetails/v2/getAllInfo/${sanphamid}`).then((res) => {
       console.log(...res.data[0].mausac);
       setDetalsdata(res.data);
     });
-  }, []);
+  }, [sanphamid]);
   console.log(detalsdata);
   // console.log(data);
   const [tenSanPham, settenSanPham] = useState();

@@ -60,9 +60,9 @@ const ProductsDetailsClient = () => {
           </div>
         </div>
         {data && (
-          <div className="py-6  flex items-center">
+          <div className="pt-2 pb-4  flex items-center">
             <div className="   w-[70%]  text-black items-center ">
-              <div key={data._id} className="  m-4 p-2 group ">
+              <div key={data._id} className=" m-4 p-2 group ">
                 <img
                   src={`../images/${data.hinhanh}`}
                   alt=""
@@ -129,9 +129,10 @@ const ProductsDetailsClient = () => {
                 </div>
               </div>
               <br />
-              Tặng kèm chuột, balo cao cấp Bảo hành dài lâu, máy chất lượng như
-              mới
-              <br />
+              <p className="text-[16px]">
+                Tặng kèm chuột, balo cao cấp Bảo hành dài lâu, máy chất lượng
+                như mới
+              </p>
               <li>
                 ✅Bảo hành theo chính sách của nhà sản xuất -{" "}
                 <NavLink href="" to="/warrantypolicy" className="text-blue-600">
@@ -165,107 +166,38 @@ const ProductsDetailsClient = () => {
               >
                 Thêm Vào Giỏ Hàng
               </button>
+              <div className="m-10 mb-0">
+                <img src="https://laptop88.vn/template/giaodien_2022/images/banner-right-detail.png"></img>
+              </div>
             </div>
           </div>
         )}
-        <div className="flex">
-          <div className=" border border-cyan-600 m-4 p-2 group w-[75%]  ">
-            <div>
-              <ul className=" font-bold border text-blue-700 border-spacing-11 m-4 p-2 rounded-sm group text-center">
-                Khách Hàng Khai Báo Thông Tin Mua Hàng
-              </ul>
-            </div>
-            <div>
-              <div className="text-black">
-                <span>Thông Tin Người Mua</span>
-                <br />
-                <span className="text-[12px] text-red-500  font-bold">
-                  {" "}
-                  Những phần đánh dấu (*) là bắt buộc
-                </span>
-              </div>
-              <div className="border border-spacing-2 m-4 p-2  ">
-                <>
-                  Họ Tên*
-                  <div>
-                    <input
-                      type="text"
-                      name=""
-                      placeholder="Nhập Họ Tên"
-                      className="py-3 px-12 border boder-gray-300 rounded-lg  my-2 w-[100%] "
-                    />
-                  </div>
-                </>
-                <>
-                  Số Điện Thoại*
-                  <div>
-                    <input
-                      type="text"
-                      name=""
-                      placeholder="Nhập Số Điện Thoại"
-                      className="py-3 px-12 border boder-gray-300 rounded-lg w-[100%] my-2"
-                    />
-                  </div>
-                </>
-                <>
-                  Địa Chỉ*
-                  <div>
-                    <input
-                      type="text"
-                      name=""
-                      placeholder="Nhập Địa Chỉ Nhận Hàng"
-                      className="py-3 px-12 border boder-gray-300 rounded-lg w-[100%] my-2"
-                    />
-                  </div>
-                </>
-                <>
-                  Email
-                  <div>
-                    <input
-                      type="text"
-                      name=""
-                      placeholder="Nhập Địa Chỉ Email"
-                      className="py-3 px-12 border boder-gray-300 rounded-lg w-[100%] my-2"
-                    />
-                  </div>
-                </>
-              </div>
-
-              <div className="">
-                <>
-                  <div>
-                    <ul>Ghi Chú Khách Hàng</ul>
-                    <textarea
-                      type="textarea"
-                      className="border border-black rounded-lg w-[100%] h-[100px] px-[5px]"
-                    />
-                  </div>
-                </>
-              </div>
-            </div>
-            <br />
-            <div className="flex  gap-x-10 font-bold text-2xl">
-              <button
-                type="submit"
-                className="px-4 py-2 w-full font-bold text-2xl rounded-md bg-blue-600 text-white  hover:bg-red-900 ansition-all"
-              >
-                MUA NGAY
-              </button>
-            </div>
-          </div>
-          <div className="w-[45%]">
-            <div className="border border-gray-900 m-4 p-2 ">
-              <ul className=" font-bold border text-blue-700 border-spacing-11 m-4 p-2 rounded-sm group text-center">
+        <div className="flex mt-5 justify-between">
+          <div className="w-[70%] ml-1 mr-5">
+            <div className="border border-gray-900 ml-3 shadow-lg rounded-lg p-2 ">
+              <ul className=" font-bold border text-pink-600 border-spacing-11 m-4 p-2 rounded-sm group text-center">
                 Thông Số Kỹ Thuật
               </ul>
               <table>
                 <tbody className="text-sm ">
                   <tr>
                     <td className="py-4">
+                      <strong>CPU :</strong>
+                    </td>
+                    <td>
+                      <div className="pl-2 ">
+                        <span className=" rounded-md font-bold  px-4 mx-2  ">
+                          {data.cpu}
+                        </span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="py-4">
                       <strong>Ổ Cứng:</strong>
                     </td>
                     <td>
-                      <div className="px-2 ">
+                      <div className="pl-2 ">
                         <span className=" rounded-md font-bold  px-4 mx-2  ">
                           {data.oCUng}
                         </span>
@@ -273,11 +205,11 @@ const ProductsDetailsClient = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td className="py-4">
+                    <td className="py-4 ">
                       <strong>Card Đồ Họa:</strong>
                     </td>
                     <td>
-                      <div className="px-2">
+                      <div className="px-2 ">
                         <span
                           className=" rounded-md font-bold  px-4 mx-2  "
                           key={uuidv4()}
@@ -322,7 +254,7 @@ const ProductsDetailsClient = () => {
                       <strong>wedCam:</strong>
                     </td>
                     <td>
-                      <div className="px-2">
+                      <div className="pl-2">
                         <span
                           className=" rounded-md font-bold  px-4 mx-2  "
                           key={uuidv4()}
@@ -365,6 +297,38 @@ const ProductsDetailsClient = () => {
                 </tbody>
               </table>
             </div>
+          </div>
+          <div className="bg-[#fff] shadow-xl w-[40%] h-[470px] p-5 border border-double  rounded-xl">
+            <h4 className="font-bold text-pink-600 text-[25px]">
+              - Thông Tin Khuyến Mại:
+            </h4>
+            <ul className="text-[15px]">
+              <li className="mt-2">
+                + Tặng KHÁCH HÀNG ĐƯỢC CHỌN 1 TRONG 2 OPTION KHUYẾN MẠI:
+              </li>
+              <li className="mt-2">
+                + Tặng TAI NGHE HP OMEN 800 1KF76AA Mới trị giá 299.000đ
+              </li>
+              <li className="mt-2">
+                + Tặng BÌNH NƯỚC THỂ THAO Laptop88 trị giá 59.000đ
+              </li>
+              <li className="mt-2">
+                + Tặng Balo laptop chống sốc hoặc Túi xách AnTech Việt Nam trị
+                giá 295.000 đ
+              </li>
+              <li className="mt-2">
+                + Tặng CHUỘT KHÔNG DÂY CÓ PIN SẠC trị giá 159.000 đ
+              </li>
+              <li className="mt-2">
+                + TẶNG BÀN DI CHUỘT GAMING XXL KHỔ LỚN 80 X 30 cm
+              </li>
+              <li className="mt-2">
+                Tặng Miễn phí dán Skin mặt lưng Laptop trị giá 180.000đ
+              </li>
+            </ul>
+            <h4 className="font-bold mt-2 text-blue-600 text-[25px]">
+              (*)Tặng Hệ điều hành Windows Bản Quyền theo máy
+            </h4>
           </div>
         </div>
       </div>

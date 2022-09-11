@@ -24,7 +24,7 @@ const OrderSuccess = ({ data }) => {
             <p className="italic ">
               Tổng đài viên AnTech Việt Nam sẽ liên hệ đến quý khách trong vòng
             </p>
-            <p className="italic font-bold ">5 phút</p>
+            <p className="italic font-bold mt-0">5 phút</p>
           </div>
           <p className="italic text-center mt-4">
             Xin cảm ơn quý khách đã cho chúng tôi cơ hội được phục vụ !

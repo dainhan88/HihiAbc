@@ -13,11 +13,7 @@ const ProductAdmin = () => {
       setData(res.data);
     });
   }, []);
-  useEffect(() => {
-    axios.get("/api/productsDetails/idSanPham").then((res) => {
-      setData(res.data);
-    });
-  }, []);
+
   console.log(data);
   const [tenSanPham, settenSanPham] = useState();
   const [maLoaiSanPham, setmaLoaiSanPham] = useState();

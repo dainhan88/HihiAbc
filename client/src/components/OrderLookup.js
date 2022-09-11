@@ -1,16 +1,15 @@
 import axios from "axios";
 import React, { useCallback, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
-import WarrantyClaim from "./WarrantyClaim";
 import _debounce from "lodash/debounce";
 import { v4 as uuidv4 } from "uuid";
 
-const Insurance = () => {
+const OrderLookup = () => {
   const [show, setShow] = useState();
   const [SearchData, setSearchData] = useState();
   const refSearch = useRef();
   const fetchDataWithSearch = (key) => {
-    axios.get(`/api/warrantyclaim/search/query=${key}`).then((res) => {
+    axios.get(`/api/order/search/query=${key}`).then((res) => {
       setSearchData(res.data);
     });
   };
@@ -27,7 +26,7 @@ const Insurance = () => {
   return (
     <div className="page-container">
       <h1 className="text-center uppercase text-red-600 font-bold text-[35px] mt-10">
-        *Tra Cứu Thông Tin Bảo Hành
+        *Tra Cứu Đơn hàng
       </h1>
 
       <div
@@ -106,7 +105,7 @@ const Insurance = () => {
                         SearchData.map((item, index) => {
                           return (
                             <div className="" key={uuidv4()}>
-                              <span>{item.hoTenKhachYeuCau}</span>
+                              <span>{item.hoTen}</span>
                             </div>
                           );
                         })}
@@ -117,7 +116,7 @@ const Insurance = () => {
                         SearchData.map((item, index) => {
                           return (
                             <div className="" key={uuidv4()}>
-                              <span>{item.soDienThoatKhachYeuCau}</span>
+                              <span>{item.soDienThoai}</span>
                             </div>
                           );
                         })}
@@ -128,7 +127,7 @@ const Insurance = () => {
                         SearchData.map((item, index) => {
                           return (
                             <div className="" key={uuidv4()}>
-                              <span>{item.emailKhachYeuCau}</span>
+                              <span>{item.trangThai}</span>
                             </div>
                           );
                         })}
@@ -140,7 +139,7 @@ const Insurance = () => {
                           return (
                             <div className="" key={uuidv4()}>
                               <span className="text-red-600 italic uppercase">
-                                {item.tinhTrangXuLyYeuCau}
+                                {item.ngayDat}
                               </span>
                             </div>
                           );
@@ -194,9 +193,8 @@ const Insurance = () => {
           </a>
         </div>
       </div>
-      {show && <WarrantyClaim setShow={setShow}></WarrantyClaim>}
     </div>
   );
 };
 
-export default Insurance;
+export default OrderLookup;
