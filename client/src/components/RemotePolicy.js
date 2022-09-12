@@ -18,19 +18,25 @@ const RemotePolicy = () => {
       </div>
       <div className="flex">
         <p className="font-bold text-[18px] mr-1"> Bước 1: </p>
-        <p> {}Quý khách chọn sản phẩm muốn mua trên website</p>
+        <p className="mt-0 text-[16px]">
+          {" "}
+          {}Quý khách chọn sản phẩm muốn mua trên website
+        </p>
       </div>
       <div className="flex">
         <p className="font-bold text-[18px] mr-1"> Bước 2: </p>
-        <p> {}Quý khách chọn chi tiết của sản phẩm đã chọn trên website</p>
+        <p className="mt-0 text-[16px]">
+          {" "}
+          {}Quý khách chọn chi tiết của sản phẩm đã chọn trên website
+        </p>
       </div>
       <div className="flex">
         <p className="font-bold text-[18px] mr-1"> Bước 3: </p>
-        <p> {}Quý khách xác nhận mua hàng</p>
+        <p className="mt-0 text-[16px]"> {}Quý khách xác nhận mua hàng</p>
       </div>
       <div className="flex">
         <p className="font-bold text-[18px] mr-1"> Bước 4: </p>
-        <p>
+        <p className="mt-0 text-[16px]">
           {" "}
           {}Sau khi quý khách đặt hàng thành công sữ có chuyên viên bán hàng gọi
           điện liên lạc xác thực đơn hàng và tư vấn đơn hàng giúp Quý khách
@@ -50,7 +56,7 @@ const RemotePolicy = () => {
             <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
           </svg>
         </p>
-        <p>
+        <p className="text-[16px]">
           {" "}
           Sau 1 - 5 ngày nhân viên giao hàng sẽ giao hàng tại địa chỉ mà Quý
           khách đã đăng ký. AnTech Việt Nam đề nghị Quý khách quay video đồng
@@ -66,7 +72,7 @@ const RemotePolicy = () => {
       </div>
       <div>
         <p className="font-bold text-[20px]">*Quý khách lưu ý:</p>
-        <div>
+        <div className="text-[16px]">
           <p>
             - Thời gian vận chuyển/nhận hàng trên không tính thứ 7 và chủ nhật.
             Thời gian vận chuyển có thể kéo dài do ảnh hưởng tình hình dịch bệnh

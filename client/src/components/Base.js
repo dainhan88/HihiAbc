@@ -36,7 +36,7 @@ const Base = ({ children }) => {
             </NavLink>
 
             {/* SanPham */}
-            <div className="  hover:no-underline  text-[20px]">
+            <div className="  hover:no-underline  text-[18px]">
               <NavLink
                 className={({ isActive }) =>
                   isActive
@@ -50,7 +50,7 @@ const Base = ({ children }) => {
             </div>
 
             {/* Chính Sách */}
-            <div className=" hover:no-underline text-[20px] ">
+            <div className=" hover:no-underline text-[18px] ">
               <NavLink
                 className={({ isActive }) =>
                   isActive
@@ -64,7 +64,7 @@ const Base = ({ children }) => {
             </div>
 
             {/* Bảo hành */}
-            <div className="  hover:no-underline text-[20px] ">
+            <div className="  hover:no-underline text-[18px] ">
               <NavLink
                 className={({ isActive }) =>
                   isActive
@@ -73,7 +73,19 @@ const Base = ({ children }) => {
                 }
                 to="/insurance"
               >
-                Yêu Cầu & Tra Cứu Bảo Hành
+                Yêu Cầu Bảo Hành
+              </NavLink>
+            </div>
+            <div className="  hover:no-underline text-[18px] ">
+              <NavLink
+                className={({ isActive }) =>
+                  isActive
+                    ? "hover:text-zinc-400 inline-block hover:no-underline font-bold text-red-600 px-2 rounded-lg"
+                    : "hover:text-zinc-400 inline-block hover:no-underline text-[#3120E0] px-2 rounded-lg font-bold"
+                }
+                to="/tra-cuu-don-hang"
+              >
+                Tra Cứu Đơn Hàng
               </NavLink>
             </div>
           </div>
@@ -152,7 +164,7 @@ const Base = ({ children }) => {
           </NavLink>
 
           {/* các ứng dụng */}
-          <div className="fixed top-[45%] animate-pulse left-[250px] rounded-full shadow-xl">
+          <div className="fixed top-[45%] left-[200px] rounded-full shadow-xl">
             <ul className="mb-0 ">
               {/* fb */}
               <li className=" border border-blue-600 rounded-full mb-2">
@@ -355,16 +367,20 @@ const Base = ({ children }) => {
         </div>
       </div>
       <div>
-        <footer className="bg-gray-600">
+        {/* footer */}
+        {/* <footer className="bg-gray-600"> */}
+        <footer className="bg-[#0F3460]">
           <div className=" text-white flex justify-between py-6 page-container text-sm gap-x-10">
             <div>
               <h4 className="text-lg">Thông Tin Công Ty</h4>
               <ul>
-                <li>
+                <li className="mb-2">
                   Trụ sở : Số 14 ngõ 273 Đường Nguyễn Khoái, Phường Thanh Lương,
                   Quận Hai Bà Trưng, Thành Phố Hà Nội, Việt Nam
                   <br />
-                  <a href="https://by.com.vn/LSR6p">Xem chỉ đường</a>
+                  <a className="text-red-500" href="https://by.com.vn/LSR6p">
+                    Xem chỉ đường
+                  </a>
                 </li>
                 <li>Mã số thuế : 0107554071</li>
                 <li>
@@ -374,13 +390,13 @@ const Base = ({ children }) => {
               </ul>
             </div>
             <div>
-              <h4 className="text-lg">Liên Hệ</h4>
+              <h4 className="text-lg ">Liên Hệ</h4>
               <ul>
-                <li>
+                <li className="mb-2">
                   Địa chỉ: Số 10 ngõ 7 Phố Phương Liệt, Phường Phương Liệt, Quận
                   Thanh Xuân, Hà Nội
                 </li>
-                <li>
+                <li className="mb-2">
                   <a
                     className="text-[#fff] hover:text-[#fff] hover:no-underline"
                     href="tel: 0969885858"
@@ -389,6 +405,19 @@ const Base = ({ children }) => {
                   </a>
                 </li>
                 <li>Email: CongtyAntech@gmail.com</li>
+              </ul>
+            </div>
+            <div className="">
+              <h4 className="text-lg w-[200px]">Hình Thức Vận Chuyển</h4>
+              <ul>
+                <li className=" flex gap-x-5 px-1 mt-3 mb-4">
+                  <img src="https://hoanghamobile.com/Content/web/img/nhattin.jpg"></img>
+                  <img src="https://hoanghamobile.com/Content/web/img/vnpost.jpg"></img>
+                </li>
+
+                <li>
+                  <img src="https://hoanghamobile.com/Content/web/img/logo-bct.png"></img>
+                </li>
               </ul>
             </div>
           </div>

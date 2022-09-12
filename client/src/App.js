@@ -34,6 +34,7 @@ import ReturnProductAdmin from "./components/Admin/ReturnProductAdmin";
 import Zalolink from "./components/Zalolink";
 import Abc from "./components/Admin/Abc";
 import OrderLookup from "./components/OrderLookup";
+import UpdateProductDetailsAdmin from "./components/Admin/UpdateProductDetailsAdmin";
 
 function App() {
   return (
@@ -85,7 +86,7 @@ function App() {
         </Route>
         <Route path="createproduct" element={<CreateProduct />}></Route>
         <Route
-          path="adminproductdetails"
+          path="adminproductdetails/:sanphamid"
           element={<AdminProductDetails />}
         ></Route>
         <Route path="warehouse" element={<Warehouse />}></Route>
@@ -93,6 +94,10 @@ function App() {
         <Route
           path="createdetailssanpham"
           element={<ProductDetailsAdmin />}
+        ></Route>
+        <Route
+          path="updatedetailssanpham/:sanphamid"
+          element={<UpdateProductDetailsAdmin />}
         ></Route>
       </Route>
     </Routes>

@@ -44,14 +44,14 @@ const BaseAdmin = ({ children }) => {
   return (
     <div className="">
       {/* Heading */}
-      <div className="text-black  bg-black text-[15px] font-bold h-[70px] ">
+      <div className="text-[#fff]  bg-[#FFC090] text-[15px] font-bold h-[70px] ">
         <div className=" flex justify-center py-4 text-white page-container  ">
           <div className=" flex py-3  gap-x-7">
             <NavLink
               className={({ isActive }) =>
                 isActive
-                  ? "hover:text-zinc-400 inline-block relative text-red-600 px-2 rounded-lg"
-                  : "hover:text-zinc-400 inline-block relative text-black px-2 rounded-lg"
+                  ? "hover:text-zinc-400 inline-block relative text-blue-600 px-2 rounded-lg"
+                  : "hover:text-zinc-400 inline-block relative text-white px-2 rounded-lg"
               }
               to="./homeadmin"
             >
@@ -68,7 +68,7 @@ const BaseAdmin = ({ children }) => {
             >
               Quản Lý Sản Phẩm
             </NavLink>
-
+            {/* 
             <NavLink
               className={({ isActive }) =>
                 isActive
@@ -78,7 +78,7 @@ const BaseAdmin = ({ children }) => {
               to="./adminproductdetails"
             >
               Chi Tiết Sản Phẩm
-            </NavLink>
+            </NavLink> */}
 
             <NavLink
               className={({ isActive }) =>

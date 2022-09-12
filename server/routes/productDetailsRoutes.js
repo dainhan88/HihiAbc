@@ -6,6 +6,8 @@ const routes = express.Router();
 routes.get("/", productDetailsBuilder.list_all_productDetailss);
 routes.post("/", productDetailsBuilder.create_a_productDetails);
 routes.get("/:idSanPham", productDetailsBuilder.read_a_productDetails);
+routes.get("/getDetail/:id", productDetailsBuilder.getDetail);
+routes.put("/updateDetail/:id", productDetailsBuilder.upDateDetail);
 routes.get("/warehouse/id", productDetailsBuilder.getProductDetail);
 routes.get("/warehouse/id", productDetailsBuilder.getProductDetail);
 routes.get("/v2/getAllInfo", productDetailsBuilder.getAllProductDetails);

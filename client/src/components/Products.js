@@ -68,7 +68,7 @@ const Products = () => {
         <a className="w-[76px] hover:scale-125 " href="">
           <img
             alt=""
-            src="https://o.remove.bg/downloads/31f0df64-c16d-46c5-b070-8b02846e7c55/apple-removebg-preview.png"
+            src="https://scontent.fhan2-5.fna.fbcdn.net/v/t1.15752-9/306112390_553079216508504_8815984489559416974_n.png?_nc_cat=109&ccb=1-7&_nc_sid=ae9488&_nc_ohc=6rFBQ35_x9IAX-etsbF&_nc_ht=scontent.fhan2-5.fna&oh=03_AVLr-CuV4N3kWM48Ccwt5EGBLLzGZamJ9U1Kmtir20cjSg&oe=63461BF0"
           ></img>
         </a>
       </div>

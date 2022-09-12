@@ -21,6 +21,6 @@ routes.get(
 routes.get("/v3/getQuantityOderByPhone", orderBuilder.getQuantityOderByPhone);
 
 routes.get("/v1/count/:status", orderBuilder.countItemsByState);
-routes.get("/search/?query=:query", orderBuilder.getorderByCondition);
-
+routes.get("/v4/search/?query=:query", orderBuilder.getorderByCondition);
+routes.get("/v2/getPriceByTime/?id=:id", orderBuilder.getPriceByTime);
 module.exports = routes;

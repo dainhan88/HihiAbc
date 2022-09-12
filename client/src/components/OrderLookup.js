@@ -9,7 +9,7 @@ const OrderLookup = () => {
   const [SearchData, setSearchData] = useState();
   const refSearch = useRef();
   const fetchDataWithSearch = (key) => {
-    axios.get(`/api/order/search/query=${key}`).then((res) => {
+    axios.get(`/api/order/v4/search/query=${key}`).then((res) => {
       setSearchData(res.data);
     });
   };
@@ -29,24 +29,12 @@ const OrderLookup = () => {
         *Tra Cứu Đơn hàng
       </h1>
 
-      <div
-        className=" underline hover:text-blue-600 cursor-pointer inline-block text-[30px] text-red-600 px-3"
-        onClick={() => {
-          setShow(true);
-        }}
-      >
-        Gửi Yêu Cầu Bảo Hành
-      </div>
-
       <div className="mt-20">
-        <h2 className="font-bold text-[25px]">
-          {" "}
-          Tra cứu thông tin sản phẩm đang gửi bảo hành
-        </h2>
+        <h2 className="font-bold text-[25px]"> Tra cứu thông tin đơn hàng</h2>
         <p className="italic ml-9 text-[15px] mt-2">
           Quý khách vui lòng nhập đúng số điện thoại của quý khách đã đặt sản
           phẩm bên Công Ty. Nếu sai số điện thoại, hệ thống sẽ không thể tra cứu
-          được thông tin của Quý Khách !
+          được thông tin đơn hàng của Quý Khách !
         </p>
         <div className="flex mt-5 justify-center">
           <input
@@ -93,11 +81,10 @@ const OrderLookup = () => {
                     <tr>
                       <th className="py-3">Họ Tên</th>
                       <th className="">Số Điện Thoại</th>
-                      <th className="">Email</th>
+                      <th className="">Ngày Đặt</th>
                       <th className="">Trạng Thái</th>
                     </tr>
                   </thead>
-
                   <tbody className="text-[18px]">
                     <th>
                       {SearchData &&
@@ -127,7 +114,7 @@ const OrderLookup = () => {
                         SearchData.map((item, index) => {
                           return (
                             <div className="" key={uuidv4()}>
-                              <span>{item.trangThai}</span>
+                              <span>{item.ngayDat}</span>
                             </div>
                           );
                         })}
@@ -139,7 +126,7 @@ const OrderLookup = () => {
                           return (
                             <div className="" key={uuidv4()}>
                               <span className="text-red-600 italic uppercase">
-                                {item.ngayDat}
+                                {item.trangThai}
                               </span>
                             </div>
                           );

@@ -406,7 +406,7 @@ exports.getorderByCondition = (req, res) => {
               _id: req.params.query,
             },
             {
-              soDienThoai: req.params.query,
+              soDienThoai: +req.params.query,
             },
           ],
           // $or: [
@@ -425,6 +425,61 @@ exports.getorderByCondition = (req, res) => {
           // ],
         },
       },
+    ],
+    (err, order) => {
+      if (err) res.send(err);
+      res.json(order);
+    }
+  );
+};
+
+exports.getPriceByTime = (req, res) => {
+  // console.log(req.params);
+  // [{}];
+  order.aggregate(
+    [
+      {
+        $addFields: {
+          _newID: { $first: "$thongTinChiTiet._id" },
+          ttct: "$thongTinChiTiet",
+        },
+      },
+      { $unwind: "$ttct" },
+      {
+        $project: {
+          _id: 1,
+          ttct: 1,
+          _newID: 1,
+          trangThai: 1,
+          ngayDat: 1,
+        },
+      },
+
+      {
+        //   // giống where trong sql
+        $match: {
+          trangThai: "Đã giao",
+          _newID: req.params.id,
+          // _id: req.params.id,
+          // ram: req.params.ram,
+        },
+      },
+      // {
+
+      // },
+      {
+        $group: {
+          _id: {
+            ID: "$_newID",
+            ram: "$ttct.ram",
+          },
+          price: { $push: "$ttct.gia" },
+          ram: { $first: "$ttct.ram" },
+        },
+      },
+      // { $sort: { _id.day: -1, month: -1 } },
+
+      { $sort: { ram: 1 } },
     ],
     (err, order) => {
       if (err) res.send(err);

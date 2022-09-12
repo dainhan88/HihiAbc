@@ -5,13 +5,13 @@ import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
-  BarElement,
+  LineElement,
   Title,
   Tooltip,
   Legend,
 } from "chart.js";
 
-import { Bar } from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
 import { startOfDay, endOfDay, addDays, subDays, formatISO } from "date-fns";
 import { CustomProvider, DateRangePicker } from "rsuite";
 import vi from "date-fns/locale/vi";
@@ -72,7 +72,7 @@ const locale = {
 ChartJS.register(
   CategoryScale,
   LinearScale,
-  BarElement,
+  LineElement,
   Title,
   Tooltip,
   Legend
@@ -165,7 +165,8 @@ const HomeAdmin = () => {
       {
         label: "Doanh Thu",
         data: monthlyProfit,
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        backgroundColor: "#EB1D36",
+        borderColor: "#FA9494",
       },
     ],
   };
@@ -217,13 +218,13 @@ const HomeAdmin = () => {
         </div>
         {indexChart === 1 && (
           <div className=" w-[900px] mt-10 page-container">
-            <Bar options={options} data={dataProfit} />
+            <Line options={options} data={dataProfit} />
           </div>
         )}
         {indexChart === 2 && (
           <div className=" w-[900px] mt-10 page-container">
             {dataRange && dataRange.length > 0 && (
-              <Bar options={options} data={dataCustom} />
+              <Line options={options} data={dataCustom} />
             )}
           </div>
         )}

@@ -28,6 +28,24 @@ exports.read_a_productDetails = (req, res) => {
   );
 };
 
+exports.getDetail = (req, res) => {
+  productDetails.findById(req.params.id, (err, productDetails) => {
+    if (err) res.send(err);
+    res.json(productDetails);
+  });
+};
+
+exports.upDateDetail = (req, res) => {
+  console.log(req.body);
+  productDetails.findByIdAndUpdate(
+    req.params.id,
+    { $set: req.body },
+    (err, productDetails) => {
+      if (err) res.send(err);
+      res.json(productDetails);
+    }
+  );
+};
 exports.getProductDetail = (req, res) => {
   productDetails.aggregate(
     [
@@ -70,17 +88,43 @@ exports.getInfoProductDetails = (req, res) => {
 };
 
 exports.update_a_productDetails = (req, res) => {
-  productDetails.findOneAndUpdate(
-    { _id: req.params.idSanPham },
-    req.body,
-    { new: true },
-    (err, productDetails) => {
-      if (err) res.send(err);
-      res.json(productDetails);
-    }
-  );
+  console.log(req.body);
+  if (req.file) {
+    productDetails.findOneAndUpdate(
+      { _id: req.params.idSanPham },
+      {
+        idSanPham: req.body.idSanPham,
+        mauSac: req.body.mauSac,
+        ram: req.file.ram,
+        donGia: req.body.donGia,
+        giaCu: req.body.giaCu,
+        soLuong: req.body.soLuong,
+      },
+      { new: true },
+      (err, productDetails) => {
+        if (err) res.send(err);
+        res.json(productDetails);
+      }
+    );
+  } else {
+    productDetails.findOneAndUpdate(
+      { _id: req.params.idSanPham },
+      {
+        idSanPham: req.body.idSanPham,
+        mauSac: req.body.mauSac,
+        ram: req.file.ram,
+        donGia: req.body.donGia,
+        giaCu: req.body.giaCu,
+        soLuong: req.body.soLuong,
+      },
+      { new: true },
+      (err, productDetails) => {
+        if (err) res.send(err);
+        res.json(productDetails);
+      }
+    );
+  }
 };
-
 exports.delete_a_productDetails = (req, res) => {
   productDetails.deleteOne({ _id: req.params.idSanPham }, (err) => {
     if (err) res.send(err);

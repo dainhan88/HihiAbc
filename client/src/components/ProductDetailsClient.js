@@ -77,6 +77,10 @@ const ProductsDetailsClient = () => {
               <span className="text-lg font-semibold text-[#7A86B6] line-through ml-3">
                 {converCurences(detalsdata && detalsdata?.giaCu[indexRam])}đ
               </span>
+              <span className="italic text-[17px] ml-4 border-l ">
+                {" "}
+                Giá đã bao gồm 10% VAT
+              </span>
               <div className="px-10">
                 <div className="px-2 mb-5">
                   <span className="px-10">Màu:</span>
